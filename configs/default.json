@@ -1,0 +1,23 @@
+{
+  "dataset_root": "fakenewsDataSet",
+  "split_path": "splits/source_grouped.json",
+  "cache_root": "cache",
+  "backend": "mock",
+  "model_id": "Qwen/Qwen2.5-Omni-3B",
+  "seed": 42,
+  "temperature": 0.0,
+  "direct_prompt": "paper",
+  "max_new_tokens": 768,
+  "media_mode": "frames",
+  "frame_count": 4,
+  "min_pixels": 12544,
+  "max_pixels": 100352,
+  "agent_profile": "full",
+  "strict_stage_errors": false,
+  "workers": 1,
+  "max_text_chars": 12000,
+  "max_transcript_chars": 8000,
+  "use_audio_in_video": true,
+  "include_transcript": true,
+  "include_description": false
+}

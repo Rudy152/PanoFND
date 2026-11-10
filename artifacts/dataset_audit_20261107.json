@@ -1,0 +1,36 @@
+{
+  "dataset_root": "C:\\Users\\11378\\Desktop\\MMLLM\\fakenewsDataSet",
+  "rows": 1950,
+  "unique_ids": 1950,
+  "duplicate_ids": [],
+  "labels": {
+    "fake": 1275,
+    "true": 675
+  },
+  "modality_combinations": {
+    "audio": 150,
+    "audio+image": 225,
+    "image": 150,
+    "text": 150,
+    "text+audio": 225,
+    "text+image": 225,
+    "text+image+audio": 300,
+    "text+image+video": 300,
+    "text+video": 225
+  },
+  "unique_nonempty_sources": 599,
+  "source_groups_with_multiple_rows": 599,
+  "description_label_leak_rows": 878,
+  "transcript_rows": 900,
+  "declared_missing_paths": 0,
+  "repaired_paths": 0,
+  "unresolved_paths": 0,
+  "unresolved_examples": [],
+  "repair_examples": [],
+  "invalid_modalities": [],
+  "invalid_labels": [],
+  "warnings": [
+    "Never pass description to a detector; it frequently discloses the gold label.",
+    "Use source-grouped splits to prevent real/fake variants of one article crossing partitions."
+  ]
+}

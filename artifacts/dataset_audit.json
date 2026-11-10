@@ -1,0 +1,65 @@
+{
+  "dataset_root": "C:\\Users\\11378\\Desktop\\MMLLM\\fakenewsDataSet",
+  "rows": 1950,
+  "unique_ids": 1950,
+  "duplicate_ids": [],
+  "labels": {
+    "fake": 1275,
+    "true": 675
+  },
+  "modality_combinations": {
+    "audio": 150,
+    "audio+image": 225,
+    "image": 150,
+    "text": 150,
+    "text+audio": 225,
+    "text+image": 225,
+    "text+image+audio": 300,
+    "text+image+video": 300,
+    "text+video": 225
+  },
+  "unique_nonempty_sources": 674,
+  "source_groups_with_multiple_rows": 599,
+  "description_label_leak_rows": 884,
+  "transcript_rows": 900,
+  "declared_missing_paths": 227,
+  "repaired_paths": 225,
+  "unresolved_paths": 2,
+  "unresolved_examples": [
+    "image/image_1775_1.jpg",
+    "image/image_1779_1.jpg"
+  ],
+  "repair_examples": [
+    "image/image_676_1.jpg -> image/image_0676_1.jpg",
+    "audio/audio_676_1.mp3 -> audio/audio_0676_1.mp3",
+    "image/image_677_1.jpg -> image/image_0677_1.jpg",
+    "audio/audio_677_1.mp3 -> audio/audio_0677_1.mp3",
+    "image/image_678_1.jpg -> image/image_0678_1.jpg",
+    "audio/audio_678_1.mp3 -> audio/audio_0678_1.mp3",
+    "image/image_679_1.jpg -> image/image_0679_1.jpg",
+    "audio/audio_679_1.mp3 -> audio/audio_0679_1.mp3",
+    "image/image_680_1.jpg -> image/image_0680_1.jpg",
+    "audio/audio_680_1.mp3 -> audio/audio_0680_1.mp3",
+    "image/image_681_1.jpg -> image/image_0681_1.jpg",
+    "audio/audio_681_1.mp3 -> audio/audio_0681_1.mp3",
+    "image/image_682_1.jpg -> image/image_0682_1.jpg",
+    "audio/audio_682_1.mp3 -> audio/audio_0682_1.mp3",
+    "image/image_683_1.jpg -> image/image_0683_1.jpg",
+    "audio/audio_683_1.mp3 -> audio/audio_0683_1.mp3",
+    "image/image_684_1.jpg -> image/image_0684_1.jpg",
+    "audio/audio_684_1.mp3 -> audio/audio_0684_1.mp3",
+    "image/image_685_1.jpg -> image/image_0685_1.jpg",
+    "audio/audio_685_1.mp3 -> audio/audio_0685_1.mp3",
+    "image/image_686_1.jpg -> image/image_0686_1.jpg",
+    "audio/audio_686_1.mp3 -> audio/audio_0686_1.mp3",
+    "image/image_687_1.jpg -> image/image_0687_1.jpg",
+    "audio/audio_687_1.mp3 -> audio/audio_0687_1.mp3",
+    "image/image_688_1.jpg -> image/image_0688_1.jpg"
+  ],
+  "invalid_modalities": [],
+  "invalid_labels": [],
+  "warnings": [
+    "Never pass description to a detector; it frequently discloses the gold label.",
+    "Use source-grouped splits to prevent real/fake variants of one article crossing partitions."
+  ]
+}

@@ -1,0 +1,28 @@
+# Secrets
+.secrets/
+
+# Environments / caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.tmp_pytest/
+.test-tmp/
+.tmp/
+tmp/
+tmp_tests/
+cache/
+*.egg-info/
+.claude/
+
+# Large data and third-party weights (not part of this repo)
+fakenewsDataSet/
+models/
+third_party/
+
+# Experiment outputs and extracted dataset frames
+runs/
+artifacts/frame_candidates/
+
+# Duplicate snapshot of the code at the repo root
+claude_modified_model_20261107/

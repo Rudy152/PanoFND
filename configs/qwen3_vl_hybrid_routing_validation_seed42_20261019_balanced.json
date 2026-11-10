@@ -1,0 +1,2109 @@
+{
+  "schema_version": "1.0",
+  "method": "predeclared_validation_routing_candidates",
+  "selection_partition_requirement": "source-grouped validation only",
+  "objective": "maximize macro_f1 subject to minimum token reduction",
+  "min_token_reduction": 0.3,
+  "selected": {
+    "rule": {
+      "name": "audio_to_full",
+      "kind": "contains_any",
+      "modalities": [
+        "audio"
+      ],
+      "fallback_on_error": true
+    },
+    "metrics": {
+      "evaluated": 224,
+      "eligible": 228,
+      "coverage": 0.9824561403508771,
+      "parse_or_runtime_errors": 4,
+      "accuracy": 0.6205357142857143,
+      "end_to_end_accuracy": 0.6096491228070176,
+      "balanced_accuracy": 0.6372497365648051,
+      "macro_f1": 0.613126079447323,
+      "per_class": {
+        "REAL": {
+          "precision": 0.46956521739130436,
+          "recall": 0.6923076923076923,
+          "f1": 0.5595854922279793,
+          "support": 78
+        },
+        "FAKE": {
+          "precision": 0.7798165137614679,
+          "recall": 0.5821917808219178,
+          "f1": 0.6666666666666667,
+          "support": 146
+        }
+      }
+    },
+    "routed_full": 110,
+    "routed_fused": 118,
+    "full_fraction": 0.4824561403508772,
+    "total_tokens": 2030383.0,
+    "token_reduction_vs_full": 0.3153553023484953
+  },
+  "leaderboard": [
+    {
+      "rule": {
+        "name": "audio_or_confidence_below_0_8_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio"
+        ],
+        "confidence_threshold": 0.8,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6294642857142857,
+        "end_to_end_accuracy": 0.618421052631579,
+        "balanced_accuracy": 0.6590270460133474,
+        "macro_f1": 0.6255161439764739,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4796747967479675,
+            "recall": 0.7564102564102564,
+            "f1": 0.5870646766169154,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8118811881188119,
+            "recall": 0.5616438356164384,
+            "f1": 0.6639676113360324,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 176,
+      "routed_fused": 52,
+      "full_fraction": 0.7719298245614035,
+      "total_tokens": 2713436.0,
+      "token_reduction_vs_full": 0.08502998211829571
+    },
+    {
+      "rule": {
+        "name": "audio_or_confidence_below_0_9_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio"
+        ],
+        "confidence_threshold": 0.9,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6294642857142857,
+        "end_to_end_accuracy": 0.618421052631579,
+        "balanced_accuracy": 0.6590270460133474,
+        "macro_f1": 0.6255161439764739,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4796747967479675,
+            "recall": 0.7564102564102564,
+            "f1": 0.5870646766169154,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8118811881188119,
+            "recall": 0.5616438356164384,
+            "f1": 0.6639676113360324,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 193,
+      "routed_fused": 35,
+      "full_fraction": 0.8464912280701754,
+      "total_tokens": 2932864.0,
+      "token_reduction_vs_full": 0.01103890914522887
+    },
+    {
+      "rule": {
+        "name": "audio_or_confidence_below_0_6_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio"
+        ],
+        "confidence_threshold": 0.6,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6205357142857143,
+        "end_to_end_accuracy": 0.6096491228070176,
+        "balanced_accuracy": 0.6521777309448542,
+        "macro_f1": 0.6171710063335678,
+        "per_class": {
+          "REAL": {
+            "precision": 0.472,
+            "recall": 0.7564102564102564,
+            "f1": 0.5812807881773399,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8080808080808081,
+            "recall": 0.547945205479452,
+            "f1": 0.6530612244897959,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 163,
+      "routed_fused": 65,
+      "full_fraction": 0.7149122807017544,
+      "total_tokens": 2562630.0,
+      "token_reduction_vs_full": 0.13588173189852581
+    },
+    {
+      "rule": {
+        "name": "audio_or_confidence_below_0_7_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio"
+        ],
+        "confidence_threshold": 0.7,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6205357142857143,
+        "end_to_end_accuracy": 0.6096491228070176,
+        "balanced_accuracy": 0.6521777309448542,
+        "macro_f1": 0.6171710063335678,
+        "per_class": {
+          "REAL": {
+            "precision": 0.472,
+            "recall": 0.7564102564102564,
+            "f1": 0.5812807881773399,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8080808080808081,
+            "recall": 0.547945205479452,
+            "f1": 0.6530612244897959,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 168,
+      "routed_fused": 60,
+      "full_fraction": 0.7368421052631579,
+      "total_tokens": 2603093.0,
+      "token_reduction_vs_full": 0.12223761726543791
+    },
+    {
+      "rule": {
+        "name": "audio_or_confidence_below_0_5_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio"
+        ],
+        "confidence_threshold": 0.5,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6205357142857143,
+        "end_to_end_accuracy": 0.6096491228070176,
+        "balanced_accuracy": 0.6432209343168247,
+        "macro_f1": 0.6149412502275163,
+        "per_class": {
+          "REAL": {
+            "precision": 0.47058823529411764,
+            "recall": 0.717948717948718,
+            "f1": 0.5685279187817259,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7904761904761904,
+            "recall": 0.5684931506849316,
+            "f1": 0.6613545816733067,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 152,
+      "routed_fused": 76,
+      "full_fraction": 0.6666666666666666,
+      "total_tokens": 2460011.0,
+      "token_reduction_vs_full": 0.17048483595736585
+    },
+    {
+      "rule": {
+        "name": "image_or_video_or_confidence_below_0_4_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image",
+          "video"
+        ],
+        "confidence_threshold": 0.4,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6517386722866175,
+        "macro_f1": 0.6135761855091071,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46875,
+            "recall": 0.7692307692307693,
+            "f1": 0.5825242718446603,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8125,
+            "recall": 0.5342465753424658,
+            "f1": 0.6446280991735538,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 179,
+      "routed_fused": 49,
+      "full_fraction": 0.7850877192982456,
+      "total_tokens": 2658725.0,
+      "token_reduction_vs_full": 0.10347851919391715
+    },
+    {
+      "rule": {
+        "name": "audio_to_full",
+        "kind": "contains_any",
+        "modalities": [
+          "audio"
+        ],
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6205357142857143,
+        "end_to_end_accuracy": 0.6096491228070176,
+        "balanced_accuracy": 0.6372497365648051,
+        "macro_f1": 0.613126079447323,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46956521739130436,
+            "recall": 0.6923076923076923,
+            "f1": 0.5595854922279793,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7798165137614679,
+            "recall": 0.5821917808219178,
+            "f1": 0.6666666666666667,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 110,
+      "routed_fused": 118,
+      "full_fraction": 0.4824561403508772,
+      "total_tokens": 2030383.0,
+      "token_reduction_vs_full": 0.3153553023484953
+    },
+    {
+      "rule": {
+        "name": "audio_or_confidence_below_0_4_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio"
+        ],
+        "confidence_threshold": 0.4,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6205357142857143,
+        "end_to_end_accuracy": 0.6096491228070176,
+        "balanced_accuracy": 0.6372497365648051,
+        "macro_f1": 0.613126079447323,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46956521739130436,
+            "recall": 0.6923076923076923,
+            "f1": 0.5595854922279793,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7798165137614679,
+            "recall": 0.5821917808219178,
+            "f1": 0.6666666666666667,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 137,
+      "routed_fused": 91,
+      "full_fraction": 0.6008771929824561,
+      "total_tokens": 2304846.0,
+      "token_reduction_vs_full": 0.22280643957160795
+    },
+    {
+      "rule": {
+        "name": "image_or_confidence_below_0_5_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image"
+        ],
+        "confidence_threshold": 0.5,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6487530734106077,
+        "macro_f1": 0.6129861780777885,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46825396825396826,
+            "recall": 0.7564102564102564,
+            "f1": 0.5784313725490196,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8061224489795918,
+            "recall": 0.541095890410959,
+            "f1": 0.6475409836065574,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 164,
+      "routed_fused": 64,
+      "full_fraction": 0.7192982456140351,
+      "total_tokens": 2609548.0,
+      "token_reduction_vs_full": 0.12006099269591564
+    },
+    {
+      "rule": {
+        "name": "multimodal_to_full",
+        "kind": "multimodal",
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6457674745345978,
+        "macro_f1": 0.6123319649038075,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46774193548387094,
+            "recall": 0.7435897435897436,
+            "f1": 0.5742574257425742,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8,
+            "recall": 0.547945205479452,
+            "f1": 0.6504065040650406,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 179,
+      "routed_fused": 49,
+      "full_fraction": 0.7850877192982456,
+      "total_tokens": 2661813.0,
+      "token_reduction_vs_full": 0.1024372462782418
+    },
+    {
+      "rule": {
+        "name": "audio_or_video_or_confidence_below_0_8_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "video"
+        ],
+        "confidence_threshold": 0.8,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6457674745345978,
+        "macro_f1": 0.6123319649038075,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46774193548387094,
+            "recall": 0.7435897435897436,
+            "f1": 0.5742574257425742,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8,
+            "recall": 0.547945205479452,
+            "f1": 0.6504065040650406,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 207,
+      "routed_fused": 21,
+      "full_fraction": 0.9078947368421053,
+      "total_tokens": 2910063.0,
+      "token_reduction_vs_full": 0.018727401292351842
+    },
+    {
+      "rule": {
+        "name": "audio_or_video_or_confidence_below_0_9_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "video"
+        ],
+        "confidence_threshold": 0.9,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6457674745345978,
+        "macro_f1": 0.6123319649038075,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46774193548387094,
+            "recall": 0.7435897435897436,
+            "f1": 0.5742574257425742,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8,
+            "recall": 0.547945205479452,
+            "f1": 0.6504065040650406,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 213,
+      "routed_fused": 15,
+      "full_fraction": 0.9342105263157895,
+      "total_tokens": 2974981.0,
+      "token_reduction_vs_full": -0.0031629339213197216
+    },
+    {
+      "rule": {
+        "name": "image_to_full",
+        "kind": "contains_any",
+        "modalities": [
+          "image"
+        ],
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6427818756585879,
+        "macro_f1": 0.6116129032258064,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4672131147540984,
+            "recall": 0.7307692307692307,
+            "f1": 0.57,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7941176470588235,
+            "recall": 0.5547945205479452,
+            "f1": 0.6532258064516129,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 136,
+      "routed_fused": 92,
+      "full_fraction": 0.5964912280701754,
+      "total_tokens": 2340039.0,
+      "token_reduction_vs_full": 0.21093936777064748
+    },
+    {
+      "rule": {
+        "name": "image_or_confidence_below_0_4_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image"
+        ],
+        "confidence_threshold": 0.4,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6427818756585879,
+        "macro_f1": 0.6116129032258064,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4672131147540984,
+            "recall": 0.7307692307692307,
+            "f1": 0.57,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7941176470588235,
+            "recall": 0.5547945205479452,
+            "f1": 0.6532258064516129,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 154,
+      "routed_fused": 74,
+      "full_fraction": 0.6754385964912281,
+      "total_tokens": 2507077.0,
+      "token_reduction_vs_full": 0.1546141911875536
+    },
+    {
+      "rule": {
+        "name": "audio_or_image_or_confidence_below_0_5_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "image"
+        ],
+        "confidence_threshold": 0.5,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6160714285714286,
+        "end_to_end_accuracy": 0.6052631578947368,
+        "balanced_accuracy": 0.6427818756585879,
+        "macro_f1": 0.6116129032258064,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4672131147540984,
+            "recall": 0.7307692307692307,
+            "f1": 0.57,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7941176470588235,
+            "recall": 0.5547945205479452,
+            "f1": 0.6532258064516129,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 197,
+      "routed_fused": 31,
+      "full_fraction": 0.8640350877192983,
+      "total_tokens": 2851294.0,
+      "token_reduction_vs_full": 0.03854429506868928
+    },
+    {
+      "rule": {
+        "name": "image_or_video_to_full",
+        "kind": "contains_any",
+        "modalities": [
+          "image",
+          "video"
+        ],
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6116071428571429,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6483140147523709,
+        "macro_f1": 0.6093571471525647,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46511627906976744,
+            "recall": 0.7692307692307693,
+            "f1": 0.5797101449275363,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8105263157894737,
+            "recall": 0.5273972602739726,
+            "f1": 0.6390041493775933,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 165,
+      "routed_fused": 63,
+      "full_fraction": 0.7236842105263158,
+      "total_tokens": 2530160.0,
+      "token_reduction_vs_full": 0.14683060870292397
+    },
+    {
+      "rule": {
+        "name": "image_or_video_or_confidence_below_0_5_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image",
+          "video"
+        ],
+        "confidence_threshold": 0.5,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6116071428571429,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6483140147523709,
+        "macro_f1": 0.6093571471525647,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46511627906976744,
+            "recall": 0.7692307692307693,
+            "f1": 0.5797101449275363,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8105263157894737,
+            "recall": 0.5273972602739726,
+            "f1": 0.6390041493775933,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 182,
+      "routed_fused": 46,
+      "full_fraction": 0.7982456140350878,
+      "total_tokens": 2691169.0,
+      "token_reduction_vs_full": 0.09253840958375725
+    },
+    {
+      "rule": {
+        "name": "all_fused",
+        "kind": "all_fused",
+        "fallback_on_error": false
+      },
+      "metrics": {
+        "evaluated": 223,
+        "eligible": 228,
+        "coverage": 0.9780701754385965,
+        "parse_or_runtime_errors": 5,
+        "accuracy": 0.6143497757847534,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6353227232537577,
+        "macro_f1": 0.6086122448979592,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4661016949152542,
+            "recall": 0.7051282051282052,
+            "f1": 0.5612244897959183,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.780952380952381,
+            "recall": 0.5655172413793104,
+            "f1": 0.6559999999999999,
+            "support": 145
+          }
+        }
+      },
+      "routed_full": 0,
+      "routed_fused": 228,
+      "full_fraction": 0.0,
+      "total_tokens": 839034.0,
+      "token_reduction_vs_full": 0.7170779211363902
+    },
+    {
+      "rule": {
+        "name": "audio_or_video_or_confidence_below_0_7_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "video"
+        ],
+        "confidence_threshold": 0.7,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6116071428571429,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6423428170003513,
+        "macro_f1": 0.6081632653061224,
+        "per_class": {
+          "REAL": {
+            "precision": 0.464,
+            "recall": 0.7435897435897436,
+            "f1": 0.5714285714285715,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.797979797979798,
+            "recall": 0.541095890410959,
+            "f1": 0.6448979591836734,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 201,
+      "routed_fused": 27,
+      "full_fraction": 0.881578947368421,
+      "total_tokens": 2828477.0,
+      "token_reduction_vs_full": 0.046238182412266515
+    },
+    {
+      "rule": {
+        "name": "audio_or_image_or_confidence_below_0_6_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "image"
+        ],
+        "confidence_threshold": 0.6,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6116071428571429,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6423428170003513,
+        "macro_f1": 0.6081632653061224,
+        "per_class": {
+          "REAL": {
+            "precision": 0.464,
+            "recall": 0.7435897435897436,
+            "f1": 0.5714285714285715,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.797979797979798,
+            "recall": 0.541095890410959,
+            "f1": 0.6448979591836734,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 205,
+      "routed_fused": 23,
+      "full_fraction": 0.8991228070175439,
+      "total_tokens": 2908680.0,
+      "token_reduction_vs_full": 0.01919374858586842
+    },
+    {
+      "rule": {
+        "name": "audio_or_video_or_confidence_below_0_4_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "video"
+        ],
+        "confidence_threshold": 0.4,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6116071428571429,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6393572181243414,
+        "macro_f1": 0.6074687292283522,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4634146341463415,
+            "recall": 0.7307692307692307,
+            "f1": 0.5671641791044776,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7920792079207921,
+            "recall": 0.547945205479452,
+            "f1": 0.6477732793522267,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 186,
+      "routed_fused": 42,
+      "full_fraction": 0.8157894736842105,
+      "total_tokens": 2707415.0,
+      "token_reduction_vs_full": 0.08706026198399586
+    },
+    {
+      "rule": {
+        "name": "audio_or_image_to_full",
+        "kind": "contains_any",
+        "modalities": [
+          "audio",
+          "image"
+        ],
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6116071428571429,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6333860203723218,
+        "macro_f1": 0.6058810443505168,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46218487394957986,
+            "recall": 0.7051282051282052,
+            "f1": 0.5583756345177666,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.780952380952381,
+            "recall": 0.5616438356164384,
+            "f1": 0.653386454183267,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 182,
+      "routed_fused": 46,
+      "full_fraction": 0.7982456140350878,
+      "total_tokens": 2723585.0,
+      "token_reduction_vs_full": 0.08160774156739226
+    },
+    {
+      "rule": {
+        "name": "audio_or_image_or_confidence_below_0_4_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "image"
+        ],
+        "confidence_threshold": 0.4,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6116071428571429,
+        "end_to_end_accuracy": 0.6008771929824561,
+        "balanced_accuracy": 0.6333860203723218,
+        "macro_f1": 0.6058810443505168,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46218487394957986,
+            "recall": 0.7051282051282052,
+            "f1": 0.5583756345177666,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.780952380952381,
+            "recall": 0.5616438356164384,
+            "f1": 0.653386454183267,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 190,
+      "routed_fused": 38,
+      "full_fraction": 0.8333333333333334,
+      "total_tokens": 2781267.0,
+      "token_reduction_vs_full": 0.06215738395016723
+    },
+    {
+      "rule": {
+        "name": "image_or_confidence_below_0_6_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image"
+        ],
+        "confidence_threshold": 0.6,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6448893572181243,
+        "macro_f1": 0.6051282051282052,
+        "per_class": {
+          "REAL": {
+            "precision": 0.46153846153846156,
+            "recall": 0.7692307692307693,
+            "f1": 0.576923076923077,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8085106382978723,
+            "recall": 0.5205479452054794,
+            "f1": 0.6333333333333333,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 174,
+      "routed_fused": 54,
+      "full_fraction": 0.7631578947368421,
+      "total_tokens": 2694667.0,
+      "token_reduction_vs_full": 0.09135888475894094
+    },
+    {
+      "rule": {
+        "name": "audio_or_video_or_confidence_below_0_6_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "video"
+        ],
+        "confidence_threshold": 0.6,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6389181594661046,
+        "macro_f1": 0.603985856637737,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4603174603174603,
+            "recall": 0.7435897435897436,
+            "f1": 0.5686274509803921,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7959183673469388,
+            "recall": 0.5342465753424658,
+            "f1": 0.6393442622950819,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 197,
+      "routed_fused": 31,
+      "full_fraction": 0.8640350877192983,
+      "total_tokens": 2797524.0,
+      "token_reduction_vs_full": 0.05667552715284352
+    },
+    {
+      "rule": {
+        "name": "audio_or_image_or_confidence_below_0_7_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "image"
+        ],
+        "confidence_threshold": 0.7,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6389181594661046,
+        "macro_f1": 0.603985856637737,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4603174603174603,
+            "recall": 0.7435897435897436,
+            "f1": 0.5686274509803921,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7959183673469388,
+            "recall": 0.5342465753424658,
+            "f1": 0.6393442622950819,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 208,
+      "routed_fused": 20,
+      "full_fraction": 0.9122807017543859,
+      "total_tokens": 2926974.0,
+      "token_reduction_vs_full": 0.01302501583995963
+    },
+    {
+      "rule": {
+        "name": "audio_or_image_or_confidence_below_0_8_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "image"
+        ],
+        "confidence_threshold": 0.8,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6389181594661046,
+        "macro_f1": 0.603985856637737,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4603174603174603,
+            "recall": 0.7435897435897436,
+            "f1": 0.5686274509803921,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7959183673469388,
+            "recall": 0.5342465753424658,
+            "f1": 0.6393442622950819,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 208,
+      "routed_fused": 20,
+      "full_fraction": 0.9122807017543859,
+      "total_tokens": 2926974.0,
+      "token_reduction_vs_full": 0.01302501583995963
+    },
+    {
+      "rule": {
+        "name": "all_full",
+        "kind": "all_full",
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6389181594661046,
+        "macro_f1": 0.603985856637737,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4603174603174603,
+            "recall": 0.7435897435897436,
+            "f1": 0.5686274509803921,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7959183673469388,
+            "recall": 0.5342465753424658,
+            "f1": 0.6393442622950819,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 228,
+      "routed_fused": 0,
+      "full_fraction": 1.0,
+      "total_tokens": 2965601.0,
+      "token_reduction_vs_full": 0.0
+    },
+    {
+      "rule": {
+        "name": "audio_or_image_or_confidence_below_0_9_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "image"
+        ],
+        "confidence_threshold": 0.9,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6389181594661046,
+        "macro_f1": 0.603985856637737,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4603174603174603,
+            "recall": 0.7435897435897436,
+            "f1": 0.5686274509803921,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7959183673469388,
+            "recall": 0.5342465753424658,
+            "f1": 0.6393442622950819,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 213,
+      "routed_fused": 15,
+      "full_fraction": 0.9342105263157895,
+      "total_tokens": 2977627.0,
+      "token_reduction_vs_full": -0.00405516453494581
+    },
+    {
+      "rule": {
+        "name": "audio_or_video_to_full",
+        "kind": "contains_any",
+        "modalities": [
+          "audio",
+          "video"
+        ],
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6359325605900948,
+        "macro_f1": 0.6033164292038959,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4596774193548387,
+            "recall": 0.7307692307692307,
+            "f1": 0.5643564356435644,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.79,
+            "recall": 0.541095890410959,
+            "f1": 0.6422764227642276,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 168,
+      "routed_fused": 60,
+      "full_fraction": 0.7368421052631579,
+      "total_tokens": 2533465.0,
+      "token_reduction_vs_full": 0.14571616343533744
+    },
+    {
+      "rule": {
+        "name": "audio_or_video_or_confidence_below_0_5_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "audio",
+          "video"
+        ],
+        "confidence_threshold": 0.5,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6359325605900948,
+        "macro_f1": 0.6033164292038959,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4596774193548387,
+            "recall": 0.7307692307692307,
+            "f1": 0.5643564356435644,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.79,
+            "recall": 0.541095890410959,
+            "f1": 0.6422764227642276,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 192,
+      "routed_fused": 36,
+      "full_fraction": 0.8421052631578947,
+      "total_tokens": 2768679.0,
+      "token_reduction_vs_full": 0.0664020547605696
+    },
+    {
+      "rule": {
+        "name": "confidence_below_0_9_to_full",
+        "kind": "low_confidence",
+        "confidence_threshold": 0.9,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6026785714285714,
+        "end_to_end_accuracy": 0.5921052631578947,
+        "balanced_accuracy": 0.6504214963119073,
+        "macro_f1": 0.6020361313504341,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45985401459854014,
+            "recall": 0.8076923076923077,
+            "f1": 0.586046511627907,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8275862068965517,
+            "recall": 0.4931506849315068,
+            "f1": 0.6180257510729613,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 137,
+      "routed_fused": 91,
+      "full_fraction": 0.6008771929824561,
+      "total_tokens": 2556713.0,
+      "token_reduction_vs_full": 0.13787694298727304
+    },
+    {
+      "rule": {
+        "name": "single_modality_to_full",
+        "kind": "single_modality",
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6071428571428571,
+        "end_to_end_accuracy": 0.5964912280701754,
+        "balanced_accuracy": 0.6299613628380751,
+        "macro_f1": 0.6017777777777777,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4583333333333333,
+            "recall": 0.7051282051282052,
+            "f1": 0.5555555555555556,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7788461538461539,
+            "recall": 0.5547945205479452,
+            "f1": 0.6479999999999999,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 54,
+      "routed_fused": 174,
+      "full_fraction": 0.23684210526315788,
+      "total_tokens": 1177877.0,
+      "token_reduction_vs_full": 0.6028201366266062
+    },
+    {
+      "rule": {
+        "name": "image_or_video_or_confidence_below_0_6_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image",
+          "video"
+        ],
+        "confidence_threshold": 0.6,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6026785714285714,
+        "end_to_end_accuracy": 0.5921052631578947,
+        "balanced_accuracy": 0.6414646996838778,
+        "macro_f1": 0.6008888710936717,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4580152671755725,
+            "recall": 0.7692307692307693,
+            "f1": 0.5741626794258373,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8064516129032258,
+            "recall": 0.5136986301369864,
+            "f1": 0.6276150627615062,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 188,
+      "routed_fused": 40,
+      "full_fraction": 0.8245614035087719,
+      "total_tokens": 2736427.0,
+      "token_reduction_vs_full": 0.07727742201327825
+    },
+    {
+      "rule": {
+        "name": "video_to_full",
+        "kind": "contains_any",
+        "modalities": [
+          "video"
+        ],
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.6026785714285714,
+        "end_to_end_accuracy": 0.5921052631578947,
+        "balanced_accuracy": 0.6354935019318582,
+        "macro_f1": 0.5997992572518318,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4566929133858268,
+            "recall": 0.7435897435897436,
+            "f1": 0.5658536585365854,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7938144329896907,
+            "recall": 0.5273972602739726,
+            "f1": 0.6337448559670782,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 63,
+      "routed_fused": 165,
+      "full_fraction": 0.27631578947368424,
+      "total_tokens": 1377171.0,
+      "token_reduction_vs_full": 0.5356182439916901
+    },
+    {
+      "rule": {
+        "name": "image_or_confidence_below_0_7_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image"
+        ],
+        "confidence_threshold": 0.7,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6380400421496313,
+        "macro_f1": 0.5966386554621849,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45454545454545453,
+            "recall": 0.7692307692307693,
+            "f1": 0.5714285714285714,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8043478260869565,
+            "recall": 0.5068493150684932,
+            "f1": 0.6218487394957983,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 180,
+      "routed_fused": 48,
+      "full_fraction": 0.7894736842105263,
+      "total_tokens": 2754396.0,
+      "token_reduction_vs_full": 0.07121827919534696
+    },
+    {
+      "rule": {
+        "name": "image_or_confidence_below_0_8_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image"
+        ],
+        "confidence_threshold": 0.8,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6380400421496313,
+        "macro_f1": 0.5966386554621849,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45454545454545453,
+            "recall": 0.7692307692307693,
+            "f1": 0.5714285714285714,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8043478260869565,
+            "recall": 0.5068493150684932,
+            "f1": 0.6218487394957983,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 181,
+      "routed_fused": 47,
+      "full_fraction": 0.793859649122807,
+      "total_tokens": 2768427.0,
+      "token_reduction_vs_full": 0.06648702910472448
+    },
+    {
+      "rule": {
+        "name": "image_or_video_or_confidence_below_0_7_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image",
+          "video"
+        ],
+        "confidence_threshold": 0.7,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6380400421496313,
+        "macro_f1": 0.5966386554621849,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45454545454545453,
+            "recall": 0.7692307692307693,
+            "f1": 0.5714285714285714,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8043478260869565,
+            "recall": 0.5068493150684932,
+            "f1": 0.6218487394957983,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 193,
+      "routed_fused": 35,
+      "full_fraction": 0.8464912280701754,
+      "total_tokens": 2786646.0,
+      "token_reduction_vs_full": 0.060343586342195055
+    },
+    {
+      "rule": {
+        "name": "image_or_video_or_confidence_below_0_8_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image",
+          "video"
+        ],
+        "confidence_threshold": 0.8,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6380400421496313,
+        "macro_f1": 0.5966386554621849,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45454545454545453,
+            "recall": 0.7692307692307693,
+            "f1": 0.5714285714285714,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8043478260869565,
+            "recall": 0.5068493150684932,
+            "f1": 0.6218487394957983,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 194,
+      "routed_fused": 34,
+      "full_fraction": 0.8508771929824561,
+      "total_tokens": 2800677.0,
+      "token_reduction_vs_full": 0.05561233625157258
+    },
+    {
+      "rule": {
+        "name": "image_or_video_or_confidence_below_0_9_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image",
+          "video"
+        ],
+        "confidence_threshold": 0.9,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6380400421496313,
+        "macro_f1": 0.5966386554621849,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45454545454545453,
+            "recall": 0.7692307692307693,
+            "f1": 0.5714285714285714,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8043478260869565,
+            "recall": 0.5068493150684932,
+            "f1": 0.6218487394957983,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 195,
+      "routed_fused": 33,
+      "full_fraction": 0.8552631578947368,
+      "total_tokens": 2814902.0,
+      "token_reduction_vs_full": 0.05081566940394211
+    },
+    {
+      "rule": {
+        "name": "image_or_confidence_below_0_9_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "image"
+        ],
+        "confidence_threshold": 0.9,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6380400421496313,
+        "macro_f1": 0.5966386554621849,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45454545454545453,
+            "recall": 0.7692307692307693,
+            "f1": 0.5714285714285714,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8043478260869565,
+            "recall": 0.5068493150684932,
+            "f1": 0.6218487394957983,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 187,
+      "routed_fused": 41,
+      "full_fraction": 0.8201754385964912,
+      "total_tokens": 2833305.0,
+      "token_reduction_vs_full": 0.04461018188218846
+    },
+    {
+      "rule": {
+        "name": "confidence_below_0_5_to_full",
+        "kind": "low_confidence",
+        "confidence_threshold": 0.5,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6320688443976115,
+        "macro_f1": 0.595602984835112,
+        "per_class": {
+          "REAL": {
+            "precision": 0.453125,
+            "recall": 0.7435897435897436,
+            "f1": 0.5631067961165049,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7916666666666666,
+            "recall": 0.5205479452054794,
+            "f1": 0.628099173553719,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 73,
+      "routed_fused": 155,
+      "full_fraction": 0.3201754385964912,
+      "total_tokens": 1672036.0,
+      "token_reduction_vs_full": 0.43618983133604283
+    },
+    {
+      "rule": {
+        "name": "confidence_below_0_4_to_full",
+        "kind": "low_confidence",
+        "confidence_threshold": 0.4,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5982142857142857,
+        "end_to_end_accuracy": 0.5877192982456141,
+        "balanced_accuracy": 0.6231120477695821,
+        "macro_f1": 0.5935483870967742,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45081967213114754,
+            "recall": 0.7051282051282052,
+            "f1": 0.55,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7745098039215687,
+            "recall": 0.541095890410959,
+            "f1": 0.6370967741935484,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 54,
+      "routed_fused": 174,
+      "full_fraction": 0.23684210526315788,
+      "total_tokens": 1463344.0,
+      "token_reduction_vs_full": 0.50656072748829
+    },
+    {
+      "rule": {
+        "name": "confidence_below_0_8_to_full",
+        "kind": "low_confidence",
+        "confidence_threshold": 0.8,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.59375,
+        "end_to_end_accuracy": 0.5833333333333334,
+        "balanced_accuracy": 0.6435721812434141,
+        "macro_f1": 0.5933528836754643,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45323741007194246,
+            "recall": 0.8076923076923077,
+            "f1": 0.5806451612903226,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8235294117647058,
+            "recall": 0.4794520547945205,
+            "f1": 0.6060606060606061,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 113,
+      "routed_fused": 115,
+      "full_fraction": 0.4956140350877193,
+      "total_tokens": 2201338.0,
+      "token_reduction_vs_full": 0.2577093142334387
+    },
+    {
+      "rule": {
+        "name": "confidence_below_0_6_to_full",
+        "kind": "low_confidence",
+        "confidence_threshold": 0.6,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.59375,
+        "end_to_end_accuracy": 0.5833333333333334,
+        "balanced_accuracy": 0.6405865823674043,
+        "macro_f1": 0.5930931230661742,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45255474452554745,
+            "recall": 0.7948717948717948,
+            "f1": 0.5767441860465116,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8160919540229885,
+            "recall": 0.4863013698630137,
+            "f1": 0.609442060085837,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 88,
+      "routed_fused": 140,
+      "full_fraction": 0.38596491228070173,
+      "total_tokens": 1839367.0,
+      "token_reduction_vs_full": 0.37976585521788
+    },
+    {
+      "rule": {
+        "name": "confidence_below_0_7_to_full",
+        "kind": "low_confidence",
+        "confidence_threshold": 0.7,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5892857142857143,
+        "end_to_end_accuracy": 0.5789473684210527,
+        "balanced_accuracy": 0.6401475237091676,
+        "macro_f1": 0.5889908256880734,
+        "per_class": {
+          "REAL": {
+            "precision": 0.45,
+            "recall": 0.8076923076923077,
+            "f1": 0.5779816513761469,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8214285714285714,
+            "recall": 0.4726027397260274,
+            "f1": 0.6,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 100,
+      "routed_fused": 128,
+      "full_fraction": 0.43859649122807015,
+      "total_tokens": 1999399.0,
+      "token_reduction_vs_full": 0.3258031002822025
+    },
+    {
+      "rule": {
+        "name": "video_or_confidence_below_0_9_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "video"
+        ],
+        "confidence_threshold": 0.9,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5892857142857143,
+        "end_to_end_accuracy": 0.5789473684210527,
+        "balanced_accuracy": 0.6371619248331577,
+        "macro_f1": 0.5887611749680715,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4492753623188406,
+            "recall": 0.7948717948717948,
+            "f1": 0.574074074074074,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.813953488372093,
+            "recall": 0.4794520547945205,
+            "f1": 0.603448275862069,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 157,
+      "routed_fused": 71,
+      "full_fraction": 0.6885964912280702,
+      "total_tokens": 2598830.0,
+      "token_reduction_vs_full": 0.12367509992072434
+    },
+    {
+      "rule": {
+        "name": "video_or_confidence_below_0_4_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "video"
+        ],
+        "confidence_threshold": 0.4,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5892857142857143,
+        "end_to_end_accuracy": 0.5789473684210527,
+        "balanced_accuracy": 0.6252195293291184,
+        "macro_f1": 0.5871794871794872,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4461538461538462,
+            "recall": 0.7435897435897436,
+            "f1": 0.5576923076923078,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7872340425531915,
+            "recall": 0.5068493150684932,
+            "f1": 0.6166666666666666,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 103,
+      "routed_fused": 125,
+      "full_fraction": 0.4517543859649123,
+      "total_tokens": 1865913.0,
+      "token_reduction_vs_full": 0.37081454990067786
+    },
+    {
+      "rule": {
+        "name": "video_or_confidence_below_0_5_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "video"
+        ],
+        "confidence_threshold": 0.5,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5848214285714286,
+        "end_to_end_accuracy": 0.5745614035087719,
+        "balanced_accuracy": 0.6247804706708816,
+        "macro_f1": 0.583418321434999,
+        "per_class": {
+          "REAL": {
+            "precision": 0.44360902255639095,
+            "recall": 0.7564102564102564,
+            "f1": 0.5592417061611374,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.7912087912087912,
+            "recall": 0.4931506849315068,
+            "f1": 0.6075949367088607,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 113,
+      "routed_fused": 115,
+      "full_fraction": 0.4956140350877193,
+      "total_tokens": 1980704.0,
+      "token_reduction_vs_full": 0.3321070501392467
+    },
+    {
+      "rule": {
+        "name": "video_or_confidence_below_0_7_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "video"
+        ],
+        "confidence_threshold": 0.7,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5803571428571429,
+        "end_to_end_accuracy": 0.5701754385964912,
+        "balanced_accuracy": 0.6303126097646645,
+        "macro_f1": 0.580055843637814,
+        "per_class": {
+          "REAL": {
+            "precision": 0.44285714285714284,
+            "recall": 0.7948717948717948,
+            "f1": 0.5688073394495412,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8095238095238095,
+            "recall": 0.4657534246575342,
+            "f1": 0.591304347826087,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 133,
+      "routed_fused": 95,
+      "full_fraction": 0.5833333333333334,
+      "total_tokens": 2224783.0,
+      "token_reduction_vs_full": 0.2498036654290311
+    },
+    {
+      "rule": {
+        "name": "video_or_confidence_below_0_8_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "video"
+        ],
+        "confidence_threshold": 0.8,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5803571428571429,
+        "end_to_end_accuracy": 0.5701754385964912,
+        "balanced_accuracy": 0.6303126097646645,
+        "macro_f1": 0.580055843637814,
+        "per_class": {
+          "REAL": {
+            "precision": 0.44285714285714284,
+            "recall": 0.7948717948717948,
+            "f1": 0.5688073394495412,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8095238095238095,
+            "recall": 0.4657534246575342,
+            "f1": 0.591304347826087,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 144,
+      "routed_fused": 84,
+      "full_fraction": 0.631578947368421,
+      "total_tokens": 2397965.0,
+      "token_reduction_vs_full": 0.1914067334074948
+    },
+    {
+      "rule": {
+        "name": "video_or_confidence_below_0_6_to_full",
+        "kind": "contains_any_or_low_confidence",
+        "modalities": [
+          "video"
+        ],
+        "confidence_threshold": 0.6,
+        "fallback_on_error": true
+      },
+      "metrics": {
+        "evaluated": 224,
+        "eligible": 228,
+        "coverage": 0.9824561403508771,
+        "parse_or_runtime_errors": 4,
+        "accuracy": 0.5803571428571429,
+        "end_to_end_accuracy": 0.5701754385964912,
+        "balanced_accuracy": 0.6273270108886547,
+        "macro_f1": 0.5798212005108556,
+        "per_class": {
+          "REAL": {
+            "precision": 0.4420289855072464,
+            "recall": 0.782051282051282,
+            "f1": 0.5648148148148148,
+            "support": 78
+          },
+          "FAKE": {
+            "precision": 0.8023255813953488,
+            "recall": 0.4726027397260274,
+            "f1": 0.5948275862068965,
+            "support": 146
+          }
+        }
+      },
+      "routed_full": 122,
+      "routed_fused": 106,
+      "full_fraction": 0.5350877192982456,
+      "total_tokens": 2074261.0,
+      "token_reduction_vs_full": 0.3005596504721977
+    }
+  ]
+}
