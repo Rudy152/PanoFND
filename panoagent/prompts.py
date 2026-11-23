@@ -1,11 +1,7 @@
-ASR_TOLERANCE = """AUDIO TRANSCRIPT text is automatic speech recognition, not the publisher's spelling.
-Phonetic or spelling variants of a name or term in a transcript (Belter/Boelter, Harmony/Khamenei,
-hilders/Wilders, Aaron/Erin), missing diacritics (Sanchez/Sanchez with accent), and paraphrased or
-partial quotations are transcription or wording variation, not evidence of fabrication; treat them
-as matches. Dates one day apart across time zones, and different details that are both true (for
-example the city of a trial versus the town of the crime) are not mismatches. Exact numbers and
-units remain strict in every modality, and a clearly different person, place, or organization
-(not a sound-alike) is still a mismatch."""
+ASR_TOLERANCE = """AUDIO TRANSCRIPT text comes from automatic speech recognition, not the publisher's
+spelling. Sound-alike spellings of a name or term, missing diacritics, and paraphrased or partial
+quotations in a transcript are transcription or wording variation, not evidence of fabrication.
+A clearly different person, place, organization, date, or number is still a mismatch."""
 
 
 DIRECT_SYSTEM = (
@@ -60,9 +56,9 @@ Every array item must be a concise string, not a nested object. Return at most f
 items per key. Preserve exact spellings and digits; never round, correct, or normalize away a
 difference. For persons, locations, times, and numeric_claims, prefix each item with its source
 modality and bind the value to its subject/predicate, for example
-`[text] unemployment rate | rose to | 199%` or `[image] chart unemployment rate | 192%`.
-Extract percentages, currency, counts, measurements, rankings, dates, and ages visible in charts,
-overlays, captions, transcripts, or article text. Use an empty array when a category is absent.
+`[text] <subject> | <predicate> | <value>` or `[image] <chart label> | <value>`.
+Keep news-image observations and video-frame observations separate, as listed under VISUAL INPUT
+ORDER. Use an empty array when a category is absent.
 Do not return an array of JSON objects; return one JSON object containing all ten keys.
 
 AVAILABLE MODALITIES: {modalities}
@@ -76,6 +72,9 @@ UNIMODAL_USER = """TASK_NAME: UNIMODAL_INVESTIGATOR
 For text, image, audio, and video, return an object under `modalities` with status
 authentic|suspicious|unknown, confidence from 0 to 1, and evidence as an array.
 Unavailable modalities must be unknown. Use the Case File as organization, not ground truth.
+Assess news images and video frames separately, using VISUAL INPUT ORDER to tell them apart.
+For images and frames, look for generation or editing traces: inconsistent lighting or shadows,
+warped text, cloned regions, implausible anatomy, pasted overlays, and meme-style captions.
 Keep at most two evidence items per modality and at most 25 words per evidence item.
 Do not repeat the article or add fields outside `modalities`.
 
@@ -97,11 +96,11 @@ type event|entity|time|location|claim_support, confidence 0..1, evidence array, 
 number|person|organization|location|time|quote|attribution, left_value, right_value,
 status match|mismatch|missing|unknown, and materiality none|minor|central.
 Treat a supplied headline or article body as text evidence even when the dataset's primary
-modality label is audio, image, or video.
-Compare every explicit number and unit, person/organization, place, date/time, quotation, and
-attribution across the pair before judging the broad event. Preserve exact digits: 192% and 199%
-are a mismatch, not approximately equal. A single altered slot is material when it changes the
-reported statistic, actor, place, time, or attribution, even if the surrounding event is real.
+modality label is audio, image, or video. "image" means the news images and "video" means the
+video frames, as listed under VISUAL INPUT ORDER; never treat a video frame as a news image.
+Compare explicit numbers and units, persons/organizations, places, dates/times, quotations, and
+attribution across the pair before judging the broad event; digits must match exactly. A single
+altered slot is material when it changes the reported statistic, actor, place, time, or attribution.
 Return all results under the `relations` key. Report only pairs whose two modalities
 are available. Return exactly one JSON object shaped as {{"relations": {{...}}}}.
 Keep at most one evidence string and six slot checks per pair; do not duplicate matching slots.
@@ -127,23 +126,19 @@ You do not decide the label. Return JSON only."""
 SUFFICIENCY_USER = """TASK_NAME: EVIDENCE_SUFFICIENCY
 Return sufficient (boolean), reason, claims_to_verify (array), and search_queries (array).
 Keep reason under 60 words. Return at most three claims_to_verify and three search_queries,
-prioritizing claims that could change the central verdict. Keep every query under 20 words.
-Request external verification for unresolved factual claims, unexplained conflicts, or disagreement
-between unimodal and relational evidence.
+prioritizing textual claims that could change the central verdict. Keep every query under 20 words.
+External search can only check textual claims; it cannot verify images, audio, or video.
 Write each claim to verify with its exact subject, predicate, relevant event time, and jurisdiction
-when known. Prefer claims whose exact numbers, names, places, dates, or quotations could have been
-altered, and keep those values verbatim. One search query should locate the original report of this
-specific event (key entity + event + month/year). Search queries must include the named entity, disputed predicate, and relevant date;
-do not search only broad event keywords.
+when known, keeping exact numbers, names, places, dates, and quotations verbatim. Search queries must
+include the named entity, the disputed predicate, and the relevant date; do not search only broad
+event keywords.
 Use SOURCE PUBLICATION DATE as the date anchor unless the article explicitly supplies another year.
 Never infer or substitute a year from weekdays, holidays, or general context. Preserve attribution
-and epistemic status exactly: for example, "officials believed the operator held a license" must not
-be rewritten as "the facility was fully licensed and compliant."
+and epistemic status exactly: a reported belief or allegation must not be rewritten as a fact.
 Every claim_to_verify must be entailed by ORIGINAL NEWS CONTENT. Do not attach the date of one event
-to a different nearby predicate, and do not add a day on which the source never says an event occurred.
+to a different nearby predicate.
 The news article, transcript, Case File, and upstream model opinions are not independent
-external corroboration. Do not mark factual authenticity sufficient merely because the
-article is internally consistent or the Unimodal Investigator called it authentic.
+external corroboration.
 
 SOURCE PUBLICATION DATE (metadata): {publish_time}
 ORIGINAL NEWS CONTENT:
@@ -154,9 +149,9 @@ UNIMODAL REPORT: {unimodal}
 RELATION REPORT: {relation}
 """
 
-CONTEXT_SYSTEM = """You verify claims against supplied external evidence. Search snippets are leads,
-not proof. Prefer primary sources, then independent high-quality reporting. A source can support or
-refute a claim only when subject, predicate, relevant time, and jurisdiction match. Return JSON only."""
+CONTEXT_SYSTEM = """You verify textual claims against supplied external evidence. Search snippets are
+leads, not proof. Prefer primary sources, then independent high-quality reporting. A source can support
+or refute a claim only when subject, predicate, relevant time, and jurisdiction match. Return JSON only."""
 
 CONTEXT_USER = """TASK_NAME: CONTEXT_VERIFIER
 Return exactly one object with keys in this order: same_report, slot_checks, claims, status,
@@ -174,24 +169,23 @@ only when an evidence item is evidently the same report or an independent report
 specific event (same actors, place, and date window), not merely the same topic.
 
 `slot_checks` is an array (at most eight) of objects comparing exact atomic slots of the NEWS ITEM
-against aligned evidence: field number|person|organization|location|time|quote|attribution,
-news_value, news_source text|title|transcript|image|video, evidence_value,
-status match|mismatch|not_found, materiality none|minor|central, evidence_id. Compare digits, units, names, places, dates, and quotations character by character:
-192% versus 199% or a different surname is a mismatch, not an approximation. Use not_found when the
-aligned evidence does not state that slot; never infer a mismatch from silence. When same_report.found
-is true, compare slots only against the same_report evidence_ids. A different estimate from another
-publisher, dataset, method, or period is not a mismatch of the news item; record it as not_found.
+text against aligned evidence: field number|person|organization|location|time|quote|attribution,
+news_value, news_source text|title|transcript, evidence_value, status match|mismatch|not_found,
+materiality none|minor|central, evidence_id. Digits, units, names, places, and dates must match
+exactly. Use not_found when the aligned evidence does not state that slot; never infer a mismatch
+from silence. When same_report.found is true, compare slots only against the same_report evidence_ids.
+A different estimate from another publisher, dataset, method, or period is not a mismatch of the
+news item; record it as not_found.
 
 Use `refuted` only when the cited evidence addresses the same subject and predicate at the
 same relevant time and jurisdiction. A clear mismatch of a central exact slot against an aligned
-report of the same event is a refutation of the claim containing that slot. A license revoked after
-an event does not prove that it was absent before the event. A missing local permit is not the same
-predicate as lacking a state or federal license. Allegations, lawsuits, and ongoing investigations
-are not established facts unless independently confirmed. Later updates to a developing story
-(rising casualty counts, revised estimates) are not refutations of an earlier figure unless the
-evidence reports the earlier figure differently for the same time. If any essential alignment is
-false or unknown, use mixed or insufficient rather than refuted. `status` is one overall string
-and `sources` is a deduplicated array of cited evidence IDs. The news item itself is not evidence.
+report of the same event is a refutation of the claim containing that slot. A later development
+(a revocation, a revised count, a new ruling) does not refute what was true or reported earlier.
+Different legal predicates or jurisdictions are not the same claim. Allegations, lawsuits, and
+ongoing investigations are not established facts unless independently confirmed. If any essential
+alignment is false or unknown, use mixed or insufficient rather than refuted. `status` is one overall
+string and `sources` is a deduplicated array of cited evidence IDs. The news item itself is not
+evidence. This check covers text only; it says nothing about images, audio, or video.
 
 {asr_tolerance}
 
@@ -205,41 +199,34 @@ JUDGE_SYSTEM = """You are the final Judge. Do not search. Use only the structure
 Identify the central news claim before assigning the label. Return JSON only and do not reveal
 hidden chain-of-thought."""
 
+DECISION_RULE = """DECISION RULE (apply to every item):
+1. Weigh REAL and FAKE as equally plausible before evidence; class frequency is not a prior.
+2. Decide per modality and per modality pair. Label FAKE when any supplied modality shows material
+   evidence of fabrication or manipulation, or any pair of supplied modalities materially conflicts
+   about the event, person, place, time, number, quotation, or attribution.
+3. Label REAL only when every supplied modality has no material concern and every available pair
+   is consistent.
+4. External evidence concerns textual claims only. A refuted or materially contradicted textual
+   claim supports FAKE. Text confirmed by sources is NOT evidence that an image, audio, or video is
+   authentic or matches the text, and never outweighs a modality-level or pair-level problem.
+5. Missing, unconfirmed, or insufficient evidence is neutral; it supports neither label.
+6. A detail with no material effect on the published assertion does not by itself make an item
+   FAKE. A later development does not refute an earlier claim. Use the supplied publication date as
+   the time anchor.
+Also return fake_probability: your probability from 0 to 1 that the item is FAKE. Use the whole
+range; do not round to a few fixed values."""
+
 JUDGE_USER = """TASK_NAME: JUDGE
 Return central_claim, central_claim_status supported|refuted|mixed|insufficient,
 binary_label REAL|FAKE, misinformation_type REAL|INTRINSIC|RELATIONAL|CONTEXTUAL|MIXED,
-affected_modalities (array), affected_relations (array), confidence 0..1,
+affected_modalities (array), affected_relations (array), confidence 0..1, fake_probability 0..1,
 evidence_ids (array, at most eight), and a concise evidence-based explanation.
 
-Treat REAL and FAKE as equally plausible before inspecting evidence; do not use the class frequency
-as a prior. Decide symmetrically: label REAL when the material factual slots supplied across
-modalities are supported and mutually consistent; label FAKE when aligned evidence shows a material
-fabrication or mismatch. Do not default to REAL merely because external evidence is missing.
+""" + DECISION_RULE + """
 
-Audit exact atomic slots before the broad event: numbers and units, people/organizations, locations,
-dates/times, quotations, and attribution. One changed digit, name, place, or date can be sufficient
-for FAKE when it materially changes the published assertion, even if the core event really happened.
-Use relation `slot_checks` directly and list material mismatches in the explanation. Do not dismiss
-an exact mismatch as incidental solely because the surrounding event is authentic.
-
-Do not turn a later development into a refutation of an earlier claim. Do not equate different legal
-predicates or jurisdictions. A disputed detail with no material effect does not by itself make an
-otherwise authentic report FAKE. Treat unaligned, mixed, alleged, or insufficient external evidence
-conservatively and lower confidence.
-When the external report has same_report.found=true, its slot_checks are the strongest available
-evidence: a central mismatch (different number, name, place, date, quotation, or attribution than the
-aligned report) supports FAKE; aligned reports that match every material slot support REAL. Only
-slot_checks citing a same_report evidence_id count; a different estimate from another source or
-period is not a refutation. Search results that only share the topic confirm nothing.
-Slot status `variant` means a spelling, transcription, or wording difference and is not a mismatch.
-`numeric_diffs` lists numbers substituted in a sentence that otherwise matches a retrieved report;
-treat each as a material mismatch. A detail that search did not confirm (insufficient or not_found)
-is neutral: it is not evidence of fabrication and not evidence of authenticity.
-Use the supplied publication date as the time anchor and do not invent a different year. Preserve
-reported attribution: an agency's contemporaneous belief is not the same claim as a later final
-legal finding. Do not shrink the published item to one supported sentence while ignoring multiple
-independently refuted material assertions; two or more such assertions make the item FAKE even if
-the headline event occurred.
+Use relation `slot_checks` directly and list material mismatches in the explanation. Slot status
+`variant` means a spelling, transcription, or wording difference and is not a mismatch.
+`numeric_diffs`, when present, list numbers that differ from the same original report.
 
 {asr_tolerance}
 
@@ -247,20 +234,18 @@ SOURCE PUBLICATION DATE (metadata): {publish_time}
 CASE FILE: {case_file}
 UNIMODAL REPORT: {unimodal}
 RELATION REPORT: {relation}
-EXTERNAL EVIDENCE REPORT: {context}
+EXTERNAL EVIDENCE REPORT (text only): {context}
 """
 
-JUDGE_IMAGE_USER = JUDGE_USER.replace(
-    "\nCASE FILE:",
-    """
+_IMAGE_POLICY_BLOCK = """
 
-Apply the following image-specific policy. It takes precedence over the general event-level
-rule above when the two differ:
+Apply the following image-specific policy. It takes precedence over the general rule above when
+the two differ:
 {decision_policy}
 
-CASE FILE:""",
-    1,
-)
+"""
+
+JUDGE_IMAGE_USER = JUDGE_USER.replace("\n{asr_tolerance}", _IMAGE_POLICY_BLOCK + "{asr_tolerance}", 1)
 
 FUSED_SYSTEM = """You are a schema-constrained multimodal fact-checking investigator.
 Inspect every supplied modality once and return one JSON object only. Do not reveal hidden
@@ -268,8 +253,9 @@ reasoning, repeat the article, or infer authenticity from writing style."""
 
 FUSED_USER = """TASK_NAME: FUSED_INVESTIGATOR
 Create one SHORT evidence report for the central news claim. Return exactly this flat JSON
-shape (the mismatch fields inside signals are scalar booleans or the string "unknown", never
-nested objects):
+shape. The values below are neutral placeholders, not defaults to copy: replace every
+"unknown" with true or false whenever the evidence decides it. Signals are scalar booleans or the
+string "unknown", never nested objects.
 
 {{
   "central_claim": "one sentence",
@@ -277,14 +263,15 @@ nested objects):
   "modalities": {{"text": {{"status": "unknown", "confidence": 0.0, "evidence": []}}}},
   "relations": {{}},
   "atomic_checks": [],
-  "signals": {{"claim_supported": true, "claim_contradicted": false, "identity_mismatch": "unknown", "attribution_mismatch": false, "temporal_mismatch": false, "jurisdiction_mismatch": "unknown", "location_mismatch": "unknown", "numeric_mismatch": "unknown", "manipulated_overlay": "unknown", "materiality": "none", "confidence": 0.0, "evidence_ids": []}},
+  "signals": {{"claim_supported": "unknown", "claim_contradicted": "unknown", "identity_mismatch": "unknown", "attribution_mismatch": "unknown", "temporal_mismatch": "unknown", "jurisdiction_mismatch": "unknown", "location_mismatch": "unknown", "numeric_mismatch": "unknown", "manipulated_overlay": "unknown", "materiality": "unknown", "confidence": 0.0, "evidence_ids": []}},
   "retrieval": {{"needed": false, "claims": [], "queries": []}}
 }}
 
 Compactness limits:
 
 - case_file: at most two short strings per array.
-- modalities: include only supplied modalities; at most one short evidence string each.
+- modalities: include only supplied modalities; "image" is the news images and "video" is the
+  video frames (see VISUAL INPUT ORDER); at most one short evidence string each.
 - relations: include only available pairs; at most one short evidence string each.
 - atomic_checks: at most four objects with field number|person|organization|location|time|quote|attribution,
   left_value, right_value, status match|mismatch|missing|unknown, materiality none|minor|central,
@@ -292,18 +279,18 @@ Compactness limits:
 - modality status is authentic, suspicious, or unknown.
 - relation status is consistent, conflict, unrelated, or unknown; type is event, entity,
   time, location, or claim_support; relation materiality is none, minor, or central.
-- retrieval: at most three short claims and three short queries. Set needed=true whenever a
-  material factual slot (number, name, place, date, quotation, attribution) cannot be confirmed from
-  the supplied modalities alone. Each claim keeps its exact slot values; each query names the
-  specific entity, event, and date, and one query should locate the original report of the event.
+- materiality in signals is none, minor, central, or unknown.
+- retrieval: at most three short textual claims and three short queries; set needed=true only for
+  textual factual claims that the supplied modalities cannot settle. Search cannot check images,
+  audio, or video.
 - Keep the entire JSON under 600 output tokens. Do not add fields or prose.
 
 Treat visible overlay text, speaker/person identity, attribution, time, and jurisdiction as
-first-class evidence. Compare every explicit number/unit, name, place, date/time, quotation, and
-attribution across modalities before judging the broad event. Preserve exact digits and spellings;
-one altered slot can be material even when the surrounding event is authentic. A fluent article is
-not proof of authenticity. The article and upstream observations
-are not independent external corroboration. Do not use or guess any dataset annotation.
+first-class evidence. For images and frames, look for generation or editing traces. Compare explicit
+numbers/units, names, places, dates/times, quotations, and attribution across modalities before
+judging the broad event; digits must match exactly. A fluent article is not proof of authenticity.
+The article and upstream observations are not independent external corroboration. Do not use or
+guess any dataset annotation.
 
 {asr_tolerance}
 
@@ -316,29 +303,25 @@ ORIGINAL NEWS CONTENT:
 JUDGE_STRUCTURED_USER = """TASK_NAME: STRUCTURED_JUDGE
 Return central_claim, central_claim_status supported|refuted|mixed|insufficient,
 binary_label REAL|FAKE, misinformation_type REAL|INTRINSIC|RELATIONAL|CONTEXTUAL|MIXED,
-affected_modalities, affected_relations, confidence 0..1, evidence_ids, and explanation.
+affected_modalities, affected_relations, confidence 0..1, fake_probability 0..1, evidence_ids,
+and explanation.
 
-Treat REAL and FAKE as equally plausible. Use the fixed structured signals and atomic_checks rather
-than reconstructing a new narrative. A material, well-supported number/unit, identity, attribution,
-location, time, jurisdiction, quotation, or overlay mismatch supports FAKE even if the broad event
-is real. Label REAL only when supplied material slots are mutually consistent and the claim is
-supported. Minor or insufficient evidence alone does not support either class; do not default to
-REAL merely because evidence is missing. If stage_valid is false, do not guess.
-When the external report has same_report.found=true, its slot_checks outrank model-internal
-impressions: a central mismatch against the aligned report supports FAKE, and an aligned report that
-matches every material slot supports REAL. Only slot_checks citing a same_report evidence_id count;
-a different estimate from another source or period is not a refutation. Topic-level search hits
-confirm nothing. Slot status `variant` means a spelling, transcription, or wording difference and is
-not a mismatch. `numeric_diffs` lists numbers substituted in a sentence that otherwise matches a
-retrieved report; treat each as a material mismatch. A detail that search did not confirm
-(insufficient or not_found) is neutral: it is not evidence of fabrication and not evidence of
-authenticity.
+""" + DECISION_RULE + """
+
+Use the structured modalities, relations, signals, and atomic_checks rather than reconstructing a
+new narrative. If stage_valid is false, do not guess. Slot status `variant` means a spelling,
+transcription, or wording difference and is not a mismatch. `numeric_diffs`, when present, list
+numbers that differ from the same original report.
 
 {asr_tolerance}
 
 SOURCE PUBLICATION DATE: {publish_time}
 STRUCTURED EVIDENCE REPORT:
 {fused_report}
-EXTERNAL EVIDENCE REPORT:
+EXTERNAL EVIDENCE REPORT (text only):
 {context}
 """
+
+JUDGE_STRUCTURED_IMAGE_USER = JUDGE_STRUCTURED_USER.replace(
+    "\n{asr_tolerance}", _IMAGE_POLICY_BLOCK + "{asr_tolerance}", 1
+)

@@ -176,8 +176,11 @@ class PipelineTests(unittest.TestCase):
             PanoAgentPipeline(backend, cache_root=directory).run(multimodal)
             requests = {request.task_name: request for request in backend.requests}
             self.assertIn("numeric_claims", requests["evidence_organizer"].user_prompt)
-            self.assertIn("192% and 199%", requests["relation_investigator"].user_prompt)
-            self.assertIn("Treat REAL and FAKE as equally plausible", requests["judge"].user_prompt)
+            self.assertIn("digits must match exactly", requests["relation_investigator"].user_prompt)
+            # No examples copied from individual tuning samples (e.g. 1351's 192%/199%).
+            for request in requests.values():
+                self.assertNotIn("199%", request.user_prompt)
+            self.assertIn("REAL and FAKE as equally plausible", requests["judge"].user_prompt)
             self.assertNotIn("Return FAKE only when", requests["judge"].user_prompt)
 
     def test_context_reuses_cached_retrieval_before_network_search(self) -> None:

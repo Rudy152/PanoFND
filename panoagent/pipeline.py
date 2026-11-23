@@ -93,7 +93,11 @@ class PanoAgentPipeline:
         strict_stage_errors: bool = False,
         retrieval_policy: str = "model",
         exclude_source_url: bool = False,
-        external_slot_guard: bool = True,
+        # Off by default: matching retrieved originals digit by digit exploits how the
+        # benchmark's fakes were derived from findable real reports. Ablation only.
+        external_slot_guard: bool = False,
+        judge_media: bool = False,
+        search_date_bound: bool = True,
     ):
         if profile not in {"full", "fused", "fused-rule"}:
             raise ValueError("profile must be full, fused, or fused-rule")
@@ -119,6 +123,7 @@ class PanoAgentPipeline:
             search_provider=self.search_provider,
         )
         self.context.exclude_source_url = exclude_source_url
+        self.context.date_bound = search_date_bound
         self.fused = FusedInvestigator(
             backend=backend,
             cache=cache,
@@ -131,6 +136,7 @@ class PanoAgentPipeline:
             cache=cache,
             max_new_tokens=min(max_new_tokens, 384) if profile == "fused" else max_new_tokens,
         )
+        self.judge.attach_media = judge_media
 
     def _force_retrieval(self, sample: NewsSample) -> bool:
         if not self.search_provider.enabled or self.retrieval_policy == "model":
@@ -182,20 +188,25 @@ class PanoAgentPipeline:
         return "FAKE"
 
     def _numeric_diff_stage(self, sample: NewsSample, stages: dict[str, StageResult]) -> list:
-        """Local, zero-cost number diff of title/article against retrieved reports."""
+        """Local, zero-cost number diff of title/article against the same original report.
+
+        Runs only with the (opt-in) slot guard, and only when the verifier confirmed the
+        same report; matching arbitrary search results produced false positives (e.g.
+        "11.2" vs a punctuation-stripped "112").
+        """
         context = stages.get("context_verifier")
-        if context is None or context.error:
+        if not self.external_slot_guard or context is None or context.error:
             return []
-        evidence = [item for item in context.data.get("retrieved_evidence") or [] if isinstance(item, dict)]
         same = context.data.get("same_report") or {}
         report_ids = {str(value) for value in same.get("evidence_ids") or []}
-        if same.get("found") is True and report_ids:
-            evidence = [item for item in evidence if str(item.get("evidence_id")) in report_ids]
-            threshold = 0.6
-        else:
-            threshold = 0.7  # no confirmed same report: require a near-verbatim sentence
+        if same.get("found") is not True or not report_ids:
+            return []
+        evidence = [
+            item for item in context.data.get("retrieved_evidence") or []
+            if isinstance(item, dict) and str(item.get("evidence_id")) in report_ids
+        ]
         news_text = "\n".join(part for part in (sample.title, sample.text) if part.strip())
-        diffs = numeric_diffs(news_text, evidence, min_similarity=threshold)
+        diffs = numeric_diffs(news_text, evidence, min_similarity=0.6)
         stages["numeric_diff"] = StageResult(
             stage="numeric_diff", data={"numeric_diffs": diffs}, raw_output=str(diffs)
         )
@@ -220,6 +231,7 @@ class PanoAgentPipeline:
             "status": context.data.get("status"),
             "same_report_found": (context.data.get("same_report") or {}).get("found"),
             "errors": context.data.get("retrieval_errors") or [],
+            "window": context.data.get("retrieval_window"),
         }
 
     def _record(

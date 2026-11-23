@@ -98,6 +98,28 @@ def external_slot_mismatches(context: dict[str, Any] | None) -> list[str]:
     ]
 
 
+def modality_problems(
+    fused_report: dict[str, Any], confidence_threshold: float = 0.5
+) -> tuple[list[str], list[str]]:
+    """Suspicious modalities and materially conflicting modality pairs in a fused report."""
+
+    def confident(item: dict[str, Any]) -> bool:
+        value = item.get("confidence")
+        return isinstance(value, (int, float)) and not isinstance(value, bool) and value >= confidence_threshold
+
+    suspicious = [
+        name for name, item in (fused_report.get("modalities") or {}).items()
+        if isinstance(item, dict) and item.get("status") == "suspicious" and confident(item)
+    ]
+    conflicts = [
+        name for name, item in (fused_report.get("relations") or {}).items()
+        if isinstance(item, dict)
+        and item.get("status") == "conflict"
+        and (item.get("materiality") == "central" or confident(item))
+    ]
+    return suspicious, conflicts
+
+
 def deterministic_verdict(
     fused_report: dict[str, Any],
     context: dict[str, Any] | None = None,
@@ -132,7 +154,7 @@ def deterministic_verdict(
             aligned_refutations.append(str(claim.get("claim", "")))
 
     context = context or {}
-    same_report, slot_checks = same_report_slot_checks(context)
+    # (same-report slot checks feed external_slot_mismatches below; they never vouch for REAL)
     external_central_mismatches = external_slot_mismatches(context) + [
         f"number: {','.join(item.get('news_numbers') or [])} vs {','.join(item.get('evidence_numbers') or [])}"
         for item in context.get("numeric_diffs") or [] if isinstance(item, dict)
@@ -160,18 +182,31 @@ def deterministic_verdict(
             "confidence": confidence,
         }
 
+    # Modality-level evidence: a confidently suspicious modality, or a material
+    # conflict between two modalities, is enough for FAKE. External text evidence can
+    # never vouch for an image, audio, or video.
+    suspicious, conflicts = modality_problems(fused_report, confidence_threshold)
+    if suspicious or conflicts:
+        return {
+            "binary_label": "FAKE",
+            "reason": "manipulated modality or cross-modal conflict",
+            "suspicious_modalities": suspicious,
+            "conflicting_pairs": conflicts,
+            "confidence": confidence,
+        }
+
     contradictions = [signals.get(key) for key in MISMATCH_SIGNALS]
-    externally_confirmed = (
-        same_report
-        and context.get("status") == "supported"
-        and bool(slot_checks)
-        and all(item.get("status") in {"match", "not_found"} for item in slot_checks)
-        and any(item.get("status") == "match" for item in slot_checks)
+    modalities = fused_report.get("modalities") or {}
+    relations = fused_report.get("relations") or {}
+    all_clean = all(
+        isinstance(item, dict) and item.get("status") != "suspicious" for item in modalities.values()
+    ) and all(
+        isinstance(item, dict) and item.get("status") != "conflict" for item in relations.values()
     )
     if (
-        (signals.get("claim_supported") is True or externally_confirmed)
-        and all(value is not True for value in contradictions)
-        and (externally_confirmed or all(value is False for value in contradictions))
+        signals.get("claim_supported") is True
+        and all(value is False for value in contradictions)
+        and all_clean
         and confidence >= confidence_threshold
     ):
         return {

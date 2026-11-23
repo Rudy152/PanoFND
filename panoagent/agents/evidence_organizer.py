@@ -53,7 +53,7 @@ class EvidenceOrganizer(JsonAgent):
             system_prompt=prompts.ORGANIZER_SYSTEM,
             user_prompt=prompts.ORGANIZER_USER.format(
                 modalities=sample.modality_key,
-                content=sample.detector_text(),
+                content=sample.agent_text(),
             ),
             max_new_tokens=self.max_new_tokens,
             **self.media_kwargs(sample),

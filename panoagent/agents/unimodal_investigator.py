@@ -17,7 +17,7 @@ class UnimodalInvestigator(JsonAgent):
             system_prompt=prompts.UNIMODAL_SYSTEM,
             user_prompt=prompts.UNIMODAL_USER.format(
                 case_file=json.dumps(case_file, ensure_ascii=False),
-                content=sample.detector_text(),
+                content=sample.agent_text(),
             ),
             max_new_tokens=self.max_new_tokens,
             **self.media_kwargs(sample),

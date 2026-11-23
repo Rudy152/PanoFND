@@ -446,7 +446,7 @@ class NumericDiffTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             record = PanoAgentPipeline(
                 VariantBackend(), cache_root=directory, search_provider=Search(),
-                profile="fused", retrieval_policy="text",
+                profile="fused", retrieval_policy="text", external_slot_guard=True,
             ).run(item)
         self.assertEqual(record.prediction, "FAKE")
         guard = record.stages["external_slot_guard"]["data"]
@@ -498,13 +498,39 @@ class AggregatorExternalEvidenceTests(unittest.TestCase):
         })
         self.assertEqual(verdict["binary_label"], "ERROR")
 
-    def test_aligned_report_matching_all_slots_yields_real(self) -> None:
+    def test_text_confirmed_by_search_never_vouches_for_real(self) -> None:
+        # Review 2026-11-16: fakes mostly alter a non-text modality while the text is real.
+        # A matching original report confirms the text only, so it must not yield REAL.
         verdict = deterministic_verdict(self._report(), {
             "status": "supported", "claims": [],
             "same_report": {"found": True},
             "slot_checks": [{"field": "number", "status": "match", "materiality": "central"}],
         })
-        self.assertEqual(verdict["binary_label"], "REAL")
+        self.assertNotEqual(verdict["binary_label"], "REAL")
+
+    def test_suspicious_modality_or_conflict_yields_fake(self) -> None:
+        report = self._report(claim_supported=True)
+        report["modalities"] = {
+            "text": {"status": "authentic", "confidence": 0.9},
+            "image": {"status": "suspicious", "confidence": 0.8},
+        }
+        self.assertEqual(deterministic_verdict(report)["binary_label"], "FAKE")
+        report = self._report(claim_supported=True)
+        report["relations"] = {"text-audio": {"status": "conflict", "materiality": "central"}}
+        self.assertEqual(deterministic_verdict(report)["binary_label"], "FAKE")
+
+    def test_real_requires_every_modality_and_pair_clean(self) -> None:
+        signals = {key: False for key in (
+            "claim_contradicted", "identity_mismatch", "attribution_mismatch", "temporal_mismatch",
+            "jurisdiction_mismatch", "location_mismatch", "numeric_mismatch", "manipulated_overlay",
+        )}
+        report = self._report(claim_supported=True, materiality="none", **signals)
+        report["modalities"] = {"text": {"status": "authentic", "confidence": 0.9},
+                                "image": {"status": "authentic", "confidence": 0.9}}
+        report["relations"] = {"text-image": {"status": "consistent", "confidence": 0.9}}
+        self.assertEqual(deterministic_verdict(report)["binary_label"], "REAL")
+        report["modalities"]["image"] = {"status": "suspicious", "confidence": 0.3}
+        self.assertNotEqual(deterministic_verdict(report)["binary_label"], "REAL")
 
 
 if __name__ == "__main__":

@@ -17,7 +17,7 @@ class EvidenceSufficiencyAgent(JsonAgent):
             system_prompt=prompts.SUFFICIENCY_SYSTEM,
             user_prompt=prompts.SUFFICIENCY_USER.format(
                 publish_time=sample.publish_time or "unknown",
-                content=sample.detector_text(),
+                content=sample.agent_text(),
                 case_file=json.dumps(case_file, ensure_ascii=False),
                 unimodal=json.dumps(unimodal, ensure_ascii=False),
                 relation=json.dumps(relation, ensure_ascii=False),

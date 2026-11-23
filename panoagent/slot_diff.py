@@ -22,8 +22,25 @@ _STOP = frozenset(
 )
 
 
-def _sentences(text: str) -> list[str]:
-    return [part.strip() for part in _SENTENCE_SPLIT.split(text or "") if part and part.strip()]
+def _sentences(text: str, window_words: int = 30) -> list[str]:
+    """Split into sentences; unpunctuated runs are cut into overlapping word windows.
+
+    Some PanoFND article texts have all punctuation stripped, which turned a whole
+    article into one "sentence" and disabled the comparison.
+    """
+    parts: list[str] = []
+    for part in _SENTENCE_SPLIT.split(text or ""):
+        part = (part or "").strip()
+        if not part:
+            continue
+        words = part.split()
+        if len(words) <= window_words * 2:
+            parts.append(part)
+            continue
+        step = window_words // 2
+        for start in range(0, len(words) - step, step):
+            parts.append(" ".join(words[start:start + window_words]))
+    return parts
 
 
 def _numbers(sentence: str) -> set[str]:

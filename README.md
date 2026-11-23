@@ -12,6 +12,25 @@ experiments on the PanoFND dataset:
 The core package uses only the Python standard library. A local
 Qwen2.5-Omni backend is optional and loaded lazily.
 
+## PanoAgent v2 (2026-11-22)
+
+`panoagent_v2/` is a separate, redesigned package. It sends native audio and
+labelled media to qwen3.8-omni-flash, adds pairwise and unimodal evidence agents,
+and scores the evidence with a trainable logistic-regression scorer under nested,
+source-grouped cross-validation. The original `panoagent` package is unchanged.
+
+Results on the frozen 765-item clean holdout, which was run once after the freeze:
+
+| System | Balanced Acc. [95% CI] | Macro-F1 |
+|---|---:|---:|
+| v2 scorer (primary) | 83.6% [81.1, 86.2] | 80.6% |
+| single call, same v2 inputs | 83.4% [80.5, 86.2] | 81.8% |
+| single call, v1 inputs (transcripts + frames) | 70.9% [67.8, 74.1] | 67.1% |
+
+- Experiment report and conclusions: [artifacts/EXPERIMENT_REPORT_v2_20261122.md](artifacts/EXPERIMENT_REPORT_v2_20261122.md)
+- Architecture: [artifacts/V2_ARCHITECTURE_REPORT.md](artifacts/V2_ARCHITECTURE_REPORT.md)
+- Metrics files: [artifacts/v2_results_20261122/](artifacts/v2_results_20261122/)
+
 ## Important dataset rules
 
 - `description` is annotation/audit metadata and is **never** passed to the
@@ -259,9 +278,18 @@ How it works:
   same event?) and exact `slot_checks` (news value vs source value). Only slots
   checked against that same report count; another source's estimate is not a
   refutation.
-- External slot guard: when the original report contradicts a central exact
-  slot, the final label is FAKE even if the Judge said REAL (the Judge's label
-  is kept under `stages.judge`). Disable with `--no-external-slot-guard`.
+- Search checks **text only** and can only count against an item: a refuted
+  textual claim supports FAKE, but text confirmed by sources is never evidence
+  that an image, audio, or video is authentic (most PanoFND fakes alter a
+  non-text modality while the text is real).
+- Only evidence published up to publication date + 1 day is used (Tavily
+  `end_date` plus a local date filter), and fact-checking sites are excluded,
+  so later debunks cannot leak the answer. `--no-search-date-bound` disables the
+  date bound for an ablation; undated results are kept and counted.
+- External slot guard (**opt-in**, `--external-slot-guard`): when the confirmed
+  original report contradicts a central exact slot or number, force FAKE. It
+  matches how the benchmark's fakes were derived, so treat it as an ablation,
+  not part of the method.
 - The Judge receives the verifier's findings plus an evidence index, not the
   full retrieved texts.
 - Search failures are recorded under `retrieval_errors`, never crash the run,
@@ -275,6 +303,28 @@ How it works:
 
 Search results are leads, not ground truth; report retrieval results separately
 from the no-search ablation.
+
+## Decision rule and inputs (changed 2026-11-16 after the methodology review)
+
+- One decision rule for every Judge and for `fused-rule`: FAKE if any supplied
+  modality shows material manipulation or any modality pair materially
+  conflicts; REAL only if every modality is clean and every pair consistent;
+  missing evidence is neutral. The image-only policy now applies to `fused` too.
+- Agent stages receive a `VISUAL INPUT ORDER` note separating news images from
+  video frames (frames are appended after the news images). The direct
+  baseline prompt is unchanged. `scripts/run_agent_search.ps1` now samples 8
+  frames by default.
+- `--judge-media` lets the Judge inspect the media itself (off by default).
+- The fused template no longer pre-fills reassuring values; free-form signal
+  values become `unknown` instead of failing the sample.
+- Judges return `fake_probability`; calibration scores the **final** prediction,
+  so a deterministic override is not undone by recalibration.
+- Stage-cache fingerprints hash media content, so files repaired in place
+  invalidate old cached stages. **All earlier stage caches are therefore
+  invalid for new runs.**
+- Not addressed in code: native audio (needs an omni base model), dedicated
+  image-forgery / AIGC / audio-deepfake detectors, and the research-direction
+  points of the review.
 
 ## Recommended full configuration
 

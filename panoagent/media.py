@@ -187,9 +187,43 @@ def prepare_sample_media(
                     RuntimeWarning,
                     stacklevel=2,
                 )
-        images = tuple(path for path in sample.image_paths if path.is_file()) + tuple(frames)
-        return replace(sample, image_paths=images, audio_paths=(), video_paths=())
+        news_images = tuple(path for path in sample.image_paths if path.is_file())
+        images = news_images + tuple(frames)
+        return replace(
+            sample,
+            image_paths=images,
+            audio_paths=(),
+            video_paths=(),
+            visual_manifest=visual_manifest(len(news_images), len(frames), bool(sample.video_paths)),
+        )
     raise ValueError(f"Unknown media mode: {mode}")
+
+
+def visual_manifest(news_images: int, video_frames: int, had_video: bool) -> str:
+    """Say which attached images are news images and which are video frames.
+
+    Frames are appended after the news images. Without this note a model cannot tell
+    a (possibly fake) news image from a frame of the video, which makes text-image,
+    text-video, and image-video relation checks meaningless.
+    """
+    lines: list[str] = []
+    if news_images:
+        lines.append(
+            f"Attached images 1-{news_images}: NEWS IMAGES published with the item."
+            if news_images > 1 else "Attached image 1: the NEWS IMAGE published with the item."
+        )
+    if video_frames:
+        first = news_images + 1
+        last = news_images + video_frames
+        lines.append(
+            f"Attached images {first}-{last}: VIDEO FRAMES sampled uniformly from the news video, "
+            "in time order (not news images)."
+        )
+    elif had_video:
+        lines.append("The news video could not be decoded; no video frames are attached.")
+    if not lines:
+        return ""
+    return "VISUAL INPUT ORDER:\n" + "\n".join(lines)
 
 
 def _child_main(argv: list[str]) -> int:

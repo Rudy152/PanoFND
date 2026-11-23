@@ -4,7 +4,7 @@ import json
 import re
 
 from .. import prompts
-from ..retrieval import SearchProvider, normalize_url
+from ..retrieval import SearchProvider, normalize_url, publication_end_date
 from ..schemas import ModelRequest, NewsSample, StageResult
 from .base import JsonAgent
 
@@ -19,6 +19,9 @@ class ContextVerifier(JsonAgent):
         # Ablation switch: drop the dataset's own source article from retrieved evidence
         # so results can be reported with and without access to the original report.
         self.exclude_source_url = False
+        # Only evidence published by (publication date + 1 day) is allowed, so later
+        # debunks cannot leak the answer. --no-search-date-bound disables it.
+        self.date_bound = True
 
     @staticmethod
     def _complete_array(text: str, key: str) -> tuple[list, int]:
@@ -207,11 +210,19 @@ class ContextVerifier(JsonAgent):
         # insufficient rather than silently fetching a different evidence set.
         evidence = cached_evidence
         retrieval_errors: list[str] = []
+        window: dict | None = None
         if evidence is None or refresh:
+            end_date = publication_end_date(sample.publish_time) if self.date_bound else None
             report = self.search_provider.search_with_report(
-                queries, focus_text="\n".join(claims)
+                queries, focus_text="\n".join(claims), end_date=end_date
             )
             retrieval_errors = list(report.errors)
+            if self.search_provider.enabled:
+                window = {
+                    "end_date": end_date,
+                    "dropped_after_end_date": getattr(report, "dropped_after_end_date", 0),
+                    "undated_documents": getattr(report, "undated_documents", 0),
+                }
             evidence = self._filter_excluded([item.to_dict() for item in report.documents], sample)
         request = self._request(claims, evidence, news_excerpt)
         if not evidence:
@@ -226,6 +237,8 @@ class ContextVerifier(JsonAgent):
             }
             if retrieval_errors:
                 data["retrieval_errors"] = retrieval_errors
+            if window is not None:
+                data["retrieval_window"] = window
             result = StageResult(
                 stage=self.stage,
                 data=data,
@@ -243,6 +256,8 @@ class ContextVerifier(JsonAgent):
             result.data["retrieved_evidence"] = evidence
             if retrieval_errors:
                 result.data["retrieval_errors"] = retrieval_errors
+            if window is not None:
+                result.data["retrieval_window"] = window
             payload = result.to_dict()
             payload["request_fingerprint"] = self._request_fingerprint(request)
             self.cache.save(sample.id, self.stage, payload)

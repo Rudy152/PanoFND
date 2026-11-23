@@ -70,6 +70,12 @@ class FusedInvestigator(JsonAgent):
                 # Preserve fail-closed semantics by treating them as unknown.
                 signals[key] = "unknown"
                 normalized_missing.append(key)
+            elif isinstance(value, str) and value.lower() != "unknown":
+                # Free-form text ("partial", "possibly", ...) used to fail the whole
+                # sample as ERROR. It is not positive evidence either way: record it
+                # as unknown and keep the normalization visible for audits.
+                signals[key] = "unknown"
+                normalized_missing.append(key)
             if signals.get(key) not in {True, False, "unknown"}:
                 raise ValueError(
                     f"fused_investigator signal `{key}` must be true|false|unknown"
@@ -108,7 +114,7 @@ class FusedInvestigator(JsonAgent):
                 asr_tolerance=prompts.ASR_TOLERANCE,
                 modalities=sample.modality_key,
                 publish_time=sample.publish_time or "unknown",
-                content=sample.detector_text(),
+                content=sample.agent_text(),
             ),
             max_new_tokens=self.max_new_tokens,
             **self.media_kwargs(sample),

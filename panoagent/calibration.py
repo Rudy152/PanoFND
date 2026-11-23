@@ -7,13 +7,27 @@ from .evaluation import binary_metrics
 
 
 def fake_score(row: dict[str, Any]) -> float | None:
-    judge = ((row.get("stages") or {}).get("judge") or {}).get("data") or {}
-    label = str(judge.get("binary_label") or row.get("prediction") or "").upper()
+    """Score in [0, 1] that the item is FAKE, consistent with the final prediction.
+
+    A deterministic override (the external slot guard) is final evidence and scores 1.0,
+    so recalibration can never silently undo it. Otherwise prefer the Judge's explicit
+    fake_probability, falling back to confidence oriented by the final label.
+    """
+    stages = row.get("stages") or {}
+    final = str(row.get("prediction") or "").upper()
+    if final not in {"REAL", "FAKE"}:
+        return None
+    if "external_slot_guard" in stages and final == "FAKE":
+        return 1.0
+    judge = (stages.get("judge") or {}).get("data") or {}
+    probability = judge.get("fake_probability")
+    if isinstance(probability, (int, float)) and not isinstance(probability, bool):
+        return min(1.0, max(0.0, float(probability)))
     confidence = judge.get("confidence")
-    if label not in {"REAL", "FAKE"} or not isinstance(confidence, (int, float)):
+    if not isinstance(confidence, (int, float)) or isinstance(confidence, bool):
         return None
     confidence = min(1.0, max(0.0, float(confidence)))
-    return confidence if label == "FAKE" else 1.0 - confidence
+    return confidence if final == "FAKE" else 1.0 - confidence
 
 
 def _threshold_metrics(rows: list[dict[str, Any]], threshold: float) -> dict[str, Any]:

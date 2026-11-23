@@ -14,7 +14,7 @@ param(
     [ValidateSet("full", "fused", "fused-rule")][string]$AgentProfile = "fused",
     [string]$ModelId = "qwen3-vl-plus",
     [ValidateSet("model", "text", "always")][string]$RetrievalPolicy = "text",
-    [int]$FrameCount = 4,
+    [int]$FrameCount = 8,
     [int]$Workers = 1,
     [string]$Tag = "search_smoke",
     [switch]$ExcludeSourceUrl,

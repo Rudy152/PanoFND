@@ -1,0 +1,377 @@
+{
+  "note": "ablations fitted on tuning only, applied once to holdout; secondary, not used for selection",
+  "fits": {
+    "v2 scorer (all features)": {
+      "C": 1.0,
+      "threshold": 0.5495
+    },
+    "v2 w/o single-call feature": {
+      "C": 0.3,
+      "threshold": 0.5157
+    },
+    "v2 w/o detector features": {
+      "C": 0.3,
+      "threshold": 0.5226
+    },
+    "v2 agents only (no single call, no detectors)": {
+      "C": 1.0,
+      "threshold": 0.5725
+    }
+  },
+  "systems": {
+    "v2 scorer (all features)": {
+      "n": 765,
+      "real_recall": 0.9076923076923077,
+      "fake_recall": 0.7643564356435644,
+      "balanced_accuracy": 0.8360243716679361,
+      "macro_f1": 0.8055977608956417,
+      "accuracy": 0.8130718954248366,
+      "fake_as_real": 119,
+      "real_as_fake": 24,
+      "errors": 0,
+      "ci95": [
+        0.8105900632462749,
+        0.8620512197182868
+      ]
+    },
+    "v2 w/o single-call feature": {
+      "n": 765,
+      "real_recall": 0.9076923076923077,
+      "fake_recall": 0.7425742574257426,
+      "balanced_accuracy": 0.8251332825590252,
+      "macro_f1": 0.7918198139613786,
+      "accuracy": 0.7986928104575164,
+      "fake_as_real": 130,
+      "real_as_fake": 24,
+      "errors": 0,
+      "ci95": [
+        0.7980325900310712,
+        0.850506941159115
+      ]
+    },
+    "v2 w/o detector features": {
+      "n": 765,
+      "real_recall": 0.9076923076923077,
+      "fake_recall": 0.7683168316831683,
+      "balanced_accuracy": 0.8380045696877381,
+      "macro_f1": 0.8081107092601059,
+      "accuracy": 0.8156862745098039,
+      "fake_as_real": 117,
+      "real_as_fake": 24,
+      "errors": 0,
+      "ci95": [
+        0.8127274956725661,
+        0.863435024553254
+      ]
+    },
+    "v2 agents only (no single call, no detectors)": {
+      "n": 765,
+      "real_recall": 0.9192307692307692,
+      "fake_recall": 0.7306930693069307,
+      "balanced_accuracy": 0.82496191926885,
+      "macro_f1": 0.7886684555492016,
+      "accuracy": 0.7947712418300653,
+      "fake_as_real": 136,
+      "real_as_fake": 21,
+      "errors": 0,
+      "ci95": [
+        0.798652784197634,
+        0.8512928189900244
+      ]
+    },
+    "single call, same v2 inputs": {
+      "n": 765,
+      "real_recall": 0.8461538461538461,
+      "fake_recall": 0.8217821782178217,
+      "balanced_accuracy": 0.8339680121858339,
+      "macro_f1": 0.8182565789473684,
+      "accuracy": 0.8300653594771242,
+      "fake_as_real": 90,
+      "real_as_fake": 40,
+      "errors": 0,
+      "ci95": [
+        0.8053627244546138,
+        0.8617364895472973
+      ]
+    },
+    "rule: any conflict or manipulated": {
+      "n": 765,
+      "real_recall": 0.9461538461538461,
+      "fake_recall": 0.5485148514851486,
+      "balanced_accuracy": 0.7473343488194973,
+      "macro_f1": 0.6831398135089617,
+      "accuracy": 0.6836601307189543,
+      "fake_as_real": 228,
+      "real_as_fake": 14,
+      "errors": 0,
+      "ci95": [
+        0.720035320036412,
+        0.7738071553702368
+      ]
+    },
+    "single call qwen3.8 (v1 inputs)": {
+      "n": 765,
+      "real_recall": 0.8192307692307692,
+      "fake_recall": 0.598019801980198,
+      "balanced_accuracy": 0.7086252856054835,
+      "macro_f1": 0.6714812103507739,
+      "accuracy": 0.673202614379085,
+      "fake_as_real": 198,
+      "real_as_fake": 46,
+      "errors": 6,
+      "ci95": [
+        0.6775131038757989,
+        0.7410887227448639
+      ]
+    },
+    "single call qwen3.5-27b (v1 inputs)": {
+      "n": 765,
+      "real_recall": 0.6076923076923076,
+      "fake_recall": 0.6831683168316832,
+      "balanced_accuracy": 0.6454303122619954,
+      "macro_f1": 0.6375586339322452,
+      "accuracy": 0.657516339869281,
+      "fake_as_real": 157,
+      "real_as_fake": 101,
+      "errors": 4,
+      "ci95": [
+        0.6086493821460282,
+        0.6818281233380978
+      ]
+    }
+  },
+  "mcnemar": {
+    "v2 scorer (all features) || v2 w/o single-call feature": {
+      "only_a_correct": 31,
+      "only_b_correct": 20,
+      "p_exact": 0.16077960181198847
+    },
+    "v2 scorer (all features) || v2 w/o detector features": {
+      "only_a_correct": 5,
+      "only_b_correct": 7,
+      "p_exact": 0.7744140625
+    },
+    "v2 scorer (all features) || v2 agents only (no single call, no detectors)": {
+      "only_a_correct": 33,
+      "only_b_correct": 19,
+      "p_exact": 0.07039422106706228
+    },
+    "v2 scorer (all features) || single call, same v2 inputs": {
+      "only_a_correct": 34,
+      "only_b_correct": 47,
+      "p_exact": 0.1820767469408432
+    },
+    "v2 scorer (all features) || rule: any conflict or manipulated": {
+      "only_a_correct": 121,
+      "only_b_correct": 22,
+      "p_exact": 9.24750845661319e-18
+    },
+    "v2 scorer (all features) || single call qwen3.8 (v1 inputs)": {
+      "only_a_correct": 138,
+      "only_b_correct": 31,
+      "p_exact": 2.5735936320470336e-17
+    },
+    "v2 scorer (all features) || single call qwen3.5-27b (v1 inputs)": {
+      "only_a_correct": 165,
+      "only_b_correct": 46,
+      "p_exact": 6.264821781886142e-17
+    },
+    "v2 w/o single-call feature || v2 w/o detector features": {
+      "only_a_correct": 21,
+      "only_b_correct": 34,
+      "p_exact": 0.10478948242660335
+    },
+    "v2 w/o single-call feature || v2 agents only (no single call, no detectors)": {
+      "only_a_correct": 14,
+      "only_b_correct": 11,
+      "p_exact": 0.6900379657745361
+    },
+    "v2 w/o single-call feature || single call, same v2 inputs": {
+      "only_a_correct": 48,
+      "only_b_correct": 72,
+      "p_exact": 0.035323682537769574
+    },
+    "v2 w/o single-call feature || rule: any conflict or manipulated": {
+      "only_a_correct": 103,
+      "only_b_correct": 15,
+      "p_exact": 2.538839115394045e-17
+    },
+    "v2 w/o single-call feature || single call qwen3.8 (v1 inputs)": {
+      "only_a_correct": 146,
+      "only_b_correct": 50,
+      "p_exact": 4.261212110129899e-12
+    },
+    "v2 w/o single-call feature || single call qwen3.5-27b (v1 inputs)": {
+      "only_a_correct": 174,
+      "only_b_correct": 66,
+      "p_exact": 2.098388835505165e-12
+    },
+    "v2 w/o detector features || v2 agents only (no single call, no detectors)": {
+      "only_a_correct": 32,
+      "only_b_correct": 16,
+      "p_exact": 0.0293049467205293
+    },
+    "v2 w/o detector features || single call, same v2 inputs": {
+      "only_a_correct": 32,
+      "only_b_correct": 43,
+      "p_exact": 0.24804574189252795
+    },
+    "v2 w/o detector features || rule: any conflict or manipulated": {
+      "only_a_correct": 123,
+      "only_b_correct": 22,
+      "p_exact": 3.205794045474075e-18
+    },
+    "v2 w/o detector features || single call qwen3.8 (v1 inputs)": {
+      "only_a_correct": 137,
+      "only_b_correct": 28,
+      "p_exact": 1.8988344627481638e-18
+    },
+    "v2 w/o detector features || single call qwen3.5-27b (v1 inputs)": {
+      "only_a_correct": 165,
+      "only_b_correct": 44,
+      "p_exact": 1.1518558709343296e-17
+    },
+    "v2 agents only (no single call, no detectors) || single call, same v2 inputs": {
+      "only_a_correct": 47,
+      "only_b_correct": 74,
+      "p_exact": 0.01772952126897052
+    },
+    "v2 agents only (no single call, no detectors) || rule: any conflict or manipulated": {
+      "only_a_correct": 100,
+      "only_b_correct": 15,
+      "p_exact": 1.3522957587316645e-16
+    },
+    "v2 agents only (no single call, no detectors) || single call qwen3.8 (v1 inputs)": {
+      "only_a_correct": 146,
+      "only_b_correct": 53,
+      "p_exact": 3.032553848050716e-11
+    },
+    "v2 agents only (no single call, no detectors) || single call qwen3.5-27b (v1 inputs)": {
+      "only_a_correct": 168,
+      "only_b_correct": 63,
+      "p_exact": 3.2826727976520924e-12
+    },
+    "single call, same v2 inputs || rule: any conflict or manipulated": {
+      "only_a_correct": 152,
+      "only_b_correct": 40,
+      "p_exact": 1.4259446734856508e-16
+    },
+    "single call, same v2 inputs || single call qwen3.8 (v1 inputs)": {
+      "only_a_correct": 144,
+      "only_b_correct": 24,
+      "p_exact": 4.690238064769671e-22
+    },
+    "single call, same v2 inputs || single call qwen3.5-27b (v1 inputs)": {
+      "only_a_correct": 176,
+      "only_b_correct": 44,
+      "p_exact": 6.837024792174661e-20
+    },
+    "rule: any conflict or manipulated || single call qwen3.8 (v1 inputs)": {
+      "only_a_correct": 103,
+      "only_b_correct": 95,
+      "p_exact": 0.6189709988332969
+    },
+    "rule: any conflict or manipulated || single call qwen3.5-27b (v1 inputs)": {
+      "only_a_correct": 153,
+      "only_b_correct": 133,
+      "p_exact": 0.2611920600653118
+    },
+    "single call qwen3.8 (v1 inputs) || single call qwen3.5-27b (v1 inputs)": {
+      "only_a_correct": 111,
+      "only_b_correct": 99,
+      "p_exact": 0.44788702100067485
+    }
+  },
+  "by_modality": {
+    "audio": {
+      "v2 scorer (all features)": 0.8333333333333333,
+      "v2 w/o single-call feature": 0.8333333333333333,
+      "v2 w/o detector features": 0.8333333333333333,
+      "v2 agents only (no single call, no detectors)": 0.8333333333333333,
+      "single call, same v2 inputs": 0.8703703703703703,
+      "rule: any conflict or manipulated": 0.5925925925925926,
+      "single call qwen3.8 (v1 inputs)": 0.6481481481481481,
+      "single call qwen3.5-27b (v1 inputs)": 0.5
+    },
+    "audio+image": {
+      "v2 scorer (all features)": 0.8653846153846154,
+      "v2 w/o single-call feature": 0.8365384615384616,
+      "v2 w/o detector features": 0.875,
+      "v2 agents only (no single call, no detectors)": 0.8365384615384616,
+      "single call, same v2 inputs": 0.8846153846153846,
+      "rule: any conflict or manipulated": 0.7788461538461539,
+      "single call qwen3.8 (v1 inputs)": 0.6634615384615385,
+      "single call qwen3.5-27b (v1 inputs)": 0.6923076923076923
+    },
+    "image": {
+      "v2 scorer (all features)": 0.7884615384615385,
+      "v2 w/o single-call feature": 0.8461538461538461,
+      "v2 w/o detector features": 0.7692307692307692,
+      "v2 agents only (no single call, no detectors)": 0.8653846153846154,
+      "single call, same v2 inputs": 0.6923076923076923,
+      "rule: any conflict or manipulated": 0.6153846153846154,
+      "single call qwen3.8 (v1 inputs)": 0.6730769230769231,
+      "single call qwen3.5-27b (v1 inputs)": 0.6730769230769231
+    },
+    "text": {
+      "v2 scorer (all features)": 0.8428571428571429,
+      "v2 w/o single-call feature": 0.8428571428571429,
+      "v2 w/o detector features": 0.8428571428571429,
+      "v2 agents only (no single call, no detectors)": 0.8428571428571429,
+      "single call, same v2 inputs": 0.8690476190476191,
+      "rule: any conflict or manipulated": 0.7571428571428571,
+      "single call qwen3.8 (v1 inputs)": 0.7,
+      "single call qwen3.5-27b (v1 inputs)": 0.7571428571428571
+    },
+    "text+audio": {
+      "v2 scorer (all features)": 0.9375,
+      "v2 w/o single-call feature": 0.9375,
+      "v2 w/o detector features": 0.9375,
+      "v2 agents only (no single call, no detectors)": 0.9375,
+      "single call, same v2 inputs": 0.9285714285714286,
+      "rule: any conflict or manipulated": 0.8482142857142857,
+      "single call qwen3.8 (v1 inputs)": 0.75,
+      "single call qwen3.5-27b (v1 inputs)": 0.5446428571428571
+    },
+    "text+image": {
+      "v2 scorer (all features)": 0.7428571428571429,
+      "v2 w/o single-call feature": 0.7428571428571429,
+      "v2 w/o detector features": 0.7285714285714285,
+      "v2 agents only (no single call, no detectors)": 0.7285714285714285,
+      "single call, same v2 inputs": 0.75,
+      "rule: any conflict or manipulated": 0.7357142857142858,
+      "single call qwen3.8 (v1 inputs)": 0.7214285714285714,
+      "single call qwen3.5-27b (v1 inputs)": 0.6357142857142857
+    },
+    "text+image+audio": {
+      "v2 scorer (all features)": 0.882716049382716,
+      "v2 w/o single-call feature": 0.8641975308641976,
+      "v2 w/o detector features": 0.882716049382716,
+      "v2 agents only (no single call, no detectors)": 0.7962962962962963,
+      "single call, same v2 inputs": 0.8765432098765431,
+      "rule: any conflict or manipulated": 0.808641975308642,
+      "single call qwen3.8 (v1 inputs)": 0.691358024691358,
+      "single call qwen3.5-27b (v1 inputs)": 0.5864197530864197
+    },
+    "text+image+video": {
+      "v2 scorer (all features)": 0.8043478260869565,
+      "v2 w/o single-call feature": 0.7329192546583851,
+      "v2 w/o detector features": 0.8385093167701863,
+      "v2 agents only (no single call, no detectors)": 0.8167701863354038,
+      "single call, same v2 inputs": 0.8012422360248448,
+      "rule: any conflict or manipulated": 0.687888198757764,
+      "single call qwen3.8 (v1 inputs)": 0.7158385093167702,
+      "single call qwen3.5-27b (v1 inputs)": 0.6630434782608696
+    },
+    "text+video": {
+      "v2 scorer (all features)": 0.8257575757575757,
+      "v2 w/o single-call feature": 0.7803030303030303,
+      "v2 w/o detector features": 0.8257575757575757,
+      "v2 agents only (no single call, no detectors)": 0.7803030303030303,
+      "single call, same v2 inputs": 0.8409090909090908,
+      "rule: any conflict or manipulated": 0.7348484848484849,
+      "single call qwen3.8 (v1 inputs)": 0.75,
+      "single call qwen3.5-27b (v1 inputs)": 0.7575757575757576
+    }
+  }
+}

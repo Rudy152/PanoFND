@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, asdict, field
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 import hashlib
 from html.parser import HTMLParser
 import json
@@ -30,6 +31,53 @@ DEFAULT_EXCLUDED_DOMAINS = (
     "semanticscholar.org",
     "researchgate.net",
 )
+
+# Fact-checking outlets publish post-hoc verdicts on viral claims. Retrieving them
+# turns detection into looking up someone else's answer, so they are excluded too.
+FACT_CHECK_DOMAINS = (
+    "snopes.com",
+    "politifact.com",
+    "factcheck.org",
+    "fullfact.org",
+    "leadstories.com",
+    "checkyourfact.com",
+    "factcheck.afp.com",
+    "truthorfiction.com",
+    "healthfeedback.org",
+    "sciencefeedback.co",
+    "boomlive.in",
+    "altnews.in",
+    "piyao.org.cn",
+    "factpaper.cn",
+)
+
+
+def publication_end_date(publish_time: str, slack_days: int = 1) -> str | None:
+    """Latest evidence date allowed for an item: publication date plus `slack_days`.
+
+    Only evidence that existed when the item was published may be used; later
+    debunks or follow-ups would leak the answer. Accepts 2024/05/06, 2024-05-06, ...
+    """
+    match = re.search(r"((?:19|20)\d{2})[-/.](\d{1,2})[-/.](\d{1,2})", publish_time or "")
+    if not match:
+        return None
+    try:
+        day = date(int(match.group(1)), int(match.group(2)), int(match.group(3)))
+    except ValueError:
+        return None
+    return (day + timedelta(days=slack_days)).isoformat()
+
+
+def _published_after(value: str, end_date: str) -> bool | None:
+    """True if a result's published date is after end_date; None if undated/unparsable."""
+    match = re.search(r"((?:19|20)\d{2})-(\d{2})-(\d{2})", str(value or ""))
+    if not match:
+        try:
+            parsed = parsedate_to_datetime(str(value))
+            return parsed.date().isoformat() > end_date
+        except (TypeError, ValueError, IndexError):
+            return None
+    return f"{match.group(1)}-{match.group(2)}-{match.group(3)}" > end_date
 
 _STOPWORDS = frozenset(
     "about after again against also among because been before being between both could "
@@ -204,6 +252,9 @@ class EvidenceDocument:
 class SearchReport:
     documents: list[EvidenceDocument]
     errors: list[str] = field(default_factory=list)
+    end_date: str | None = None
+    dropped_after_end_date: int = 0
+    undated_documents: int = 0
     queries: list[str] = field(default_factory=list)
 
 
@@ -214,7 +265,9 @@ class SearchProvider(ABC):
     def search(self, queries: list[str], max_results_per_query: int = 3) -> list[EvidenceDocument]:
         raise NotImplementedError
 
-    def search_with_report(self, queries: list[str], focus_text: str = "") -> SearchReport:
+    def search_with_report(
+        self, queries: list[str], focus_text: str = "", end_date: str | None = None
+    ) -> SearchReport:
         """Search without letting a network failure abort the whole sample."""
         try:
             return SearchReport(documents=self.search(queries), queries=list(queries))
@@ -253,7 +306,7 @@ class TavilySearchProvider(SearchProvider):
         max_results_per_query: int = 3,
         max_queries: int = 5,
         max_documents: int = 10,
-        exclude_domains: tuple[str, ...] | list[str] = DEFAULT_EXCLUDED_DOMAINS,
+        exclude_domains: tuple[str, ...] | list[str] = DEFAULT_EXCLUDED_DOMAINS + FACT_CHECK_DOMAINS,
         cache_dir: str | Path | None = None,
         max_retries: int = 3,
         sleep_fn: Callable[[float], None] = time.sleep,
@@ -292,7 +345,9 @@ class TavilySearchProvider(SearchProvider):
         head = self.max_content_chars - len(marker) - tail
         return text[:head] + marker + (text[-tail:] if tail else "")
 
-    def _request_body(self, query: str, max_results: int) -> dict[str, Any]:
+    def _request_body(
+        self, query: str, max_results: int, end_date: str | None = None
+    ) -> dict[str, Any]:
         body: dict[str, Any] = {
             "query": query,
             "search_depth": "advanced",
@@ -305,6 +360,9 @@ class TavilySearchProvider(SearchProvider):
         }
         if self.exclude_domains:
             body["exclude_domains"] = list(self.exclude_domains)
+        if end_date:
+            body["end_date"] = end_date
+            body["include_published_date"] = True
         return body
 
     def _cache_path(self, body: dict[str, Any]) -> Path | None:
@@ -363,9 +421,13 @@ class TavilySearchProvider(SearchProvider):
         return result
 
     def _collect(
-        self, queries: list[str], max_results_per_query: int, focus_text: str
+        self,
+        queries: list[str],
+        max_results_per_query: int,
+        focus_text: str,
+        end_date: str | None = None,
     ) -> SearchReport:
-        report = SearchReport(documents=[])
+        report = SearchReport(documents=[], end_date=end_date)
         seen_urls: set[str] = set()
         unique_queries: list[str] = []
         for query in queries:
@@ -377,7 +439,7 @@ class TavilySearchProvider(SearchProvider):
             if len(report.documents) >= self.max_documents:
                 break
             try:
-                body = self._post(self._request_body(query, max_results_per_query))
+                body = self._post(self._request_body(query, max_results_per_query, end_date))
             except Exception as exc:  # noqa: BLE001 - per-query failure is recorded
                 report.errors.append(f"{query[:80]!r}: {type(exc).__name__}: {exc}")
                 continue
@@ -391,6 +453,14 @@ class TavilySearchProvider(SearchProvider):
                     for domain in self.exclude_domains
                 ):
                     continue
+                if end_date:
+                    after = _published_after(item.get("published_date"), end_date)
+                    if after is True:
+                        # Published after the news item: would leak later debunks.
+                        report.dropped_after_end_date += 1
+                        continue
+                    if after is None:
+                        report.undated_documents += 1
                 seen_urls.add(key)
                 report.documents.append(EvidenceDocument(
                     evidence_id=f"E{len(report.documents) + 1:03d}",
@@ -464,8 +534,12 @@ class TavilySearchProvider(SearchProvider):
             raise RuntimeError("; ".join(report.errors))
         return report.documents
 
-    def search_with_report(self, queries: list[str], focus_text: str = "") -> SearchReport:
-        return self._collect(queries, self.max_results_per_query, focus_text=focus_text)
+    def search_with_report(
+        self, queries: list[str], focus_text: str = "", end_date: str | None = None
+    ) -> SearchReport:
+        return self._collect(
+            queries, self.max_results_per_query, focus_text=focus_text, end_date=end_date
+        )
 
 
 def make_search_provider(
@@ -489,7 +563,8 @@ def make_search_provider(
             max_content_chars=max_content_chars,
             max_documents=max_documents,
             exclude_domains=(
-                DEFAULT_EXCLUDED_DOMAINS if exclude_domains is None else tuple(exclude_domains)
+                DEFAULT_EXCLUDED_DOMAINS + FACT_CHECK_DOMAINS
+                if exclude_domains is None else tuple(exclude_domains)
             ),
         )
     raise ValueError(f"unknown search provider: {name}")

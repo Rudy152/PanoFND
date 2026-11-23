@@ -44,7 +44,7 @@ class RelationInvestigator(JsonAgent):
                 modalities=", ".join(sorted({part for pair in allowed_pairs for part in pair.split("-")})),
                 case_file=json.dumps(case_file, ensure_ascii=False),
                 unimodal=json.dumps(unimodal, ensure_ascii=False),
-                content=sample.detector_text(),
+                content=sample.agent_text(),
             ),
             max_new_tokens=self.max_new_tokens,
             **self.media_kwargs(sample),

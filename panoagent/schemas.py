@@ -24,6 +24,10 @@ class NewsSample:
     description: str
     transcript: str = ""
     path_repairs: tuple[str, ...] = ()
+    # Set by prepare_sample_media in frames mode: which attached images are news
+    # images and which are video frames. Agent stages only; the direct baseline
+    # prompt stays unchanged for reproducibility.
+    visual_manifest: str = ""
 
     @property
     def binary_label(self) -> str:
@@ -45,6 +49,13 @@ class NewsSample:
         if self.publish_time.strip():
             parts.append(f"PUBLICATION DATE (metadata): {self.publish_time.strip()}")
         return "\n\n".join(parts)
+
+    def agent_text(self) -> str:
+        """Model-visible text for agent stages: detector text plus the visual input order."""
+        text = self.detector_text()
+        if self.visual_manifest.strip():
+            return f"{text}\n\n{self.visual_manifest.strip()}" if text else self.visual_manifest.strip()
+        return text
 
 
 @dataclass(slots=True)

@@ -194,7 +194,9 @@ def command_agent(args: argparse.Namespace) -> None:
             strict_stage_errors=args.strict_stage_errors,
             retrieval_policy=args.retrieval_policy,
             exclude_source_url=args.exclude_source_url,
-            external_slot_guard=not args.no_external_slot_guard,
+            external_slot_guard=args.external_slot_guard,
+            judge_media=args.judge_media,
+            search_date_bound=not args.no_search_date_bound,
         )
 
     def run_one(sample: NewsSample, pipeline=None) -> PredictionRecord:
@@ -438,10 +440,21 @@ def build_parser() -> argparse.ArgumentParser:
                 help="ablation: drop the dataset source article from retrieved evidence",
             )
             runner.add_argument(
-                "--no-external-slot-guard", action="store_true",
+                "--external-slot-guard", action="store_true",
                 help=(
-                    "ablation: keep the Judge label even when the retrieved original report "
-                    "contradicts a central exact slot"
+                    "ablation (off by default): force FAKE when the confirmed original report "
+                    "contradicts a central exact slot or a number of the news text"
+                ),
+            )
+            runner.add_argument(
+                "--judge-media", action="store_true",
+                help="also attach the item's media to the Judge call (one extra media upload)",
+            )
+            runner.add_argument(
+                "--no-search-date-bound", action="store_true",
+                help=(
+                    "allow evidence published after the news item (by default only evidence "
+                    "up to publication date + 1 day is used)"
                 ),
             )
             runner.add_argument(
