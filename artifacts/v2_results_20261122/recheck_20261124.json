@@ -1,0 +1,498 @@
+{
+  "tuning180": {
+    "single_call": {
+      "v1 hard output": {
+        "n": 180,
+        "balanced_accuracy": 0.6778,
+        "macro_f1": 0.6729,
+        "accuracy": 0.6778,
+        "real_recall": 0.8,
+        "fake_recall": 0.5556,
+        "errors": 0
+      },
+      "v2 inputs, raw TRUE/FALSE": {
+        "n": 180,
+        "balanced_accuracy": 0.7556,
+        "macro_f1": 0.7495,
+        "accuracy": 0.7556,
+        "real_recall": 0.9111,
+        "fake_recall": 0.6,
+        "errors": 0
+      },
+      "v2 inputs, threshold 0.5": {
+        "n": 180,
+        "balanced_accuracy": 0.7611,
+        "macro_f1": 0.7556,
+        "accuracy": 0.7611,
+        "real_recall": 0.9111,
+        "fake_recall": 0.6111,
+        "errors": 0
+      },
+      "v2 inputs, frozen threshold": {
+        "n": 180,
+        "balanced_accuracy": 0.7389,
+        "macro_f1": 0.7388,
+        "accuracy": 0.7389,
+        "real_recall": 0.7222,
+        "fake_recall": 0.7556,
+        "errors": 0
+      }
+    },
+    "calls_per_item": {
+      "2": 120,
+      "4": 60
+    },
+    "single_call_failed": 0,
+    "rows_with_failed_call": 4,
+    "failure_kinds": {
+      "invalid JSON": 4
+    },
+    "recorded_tokens_uncached": 2190516
+  },
+  "tuning943": {
+    "single_call": {
+      "v1 hard output": {
+        "n": 943,
+        "balanced_accuracy": 0.7114,
+        "macro_f1": 0.6749,
+        "accuracy": 0.6766,
+        "real_recall": 0.8273,
+        "fake_recall": 0.5954,
+        "errors": 4
+      },
+      "v2 inputs, raw TRUE/FALSE": {
+        "n": 943,
+        "balanced_accuracy": 0.7758,
+        "macro_f1": 0.7324,
+        "accuracy": 0.7349,
+        "real_recall": 0.9121,
+        "fake_recall": 0.6395,
+        "errors": 0
+      },
+      "v2 inputs, threshold 0.5": {
+        "n": 943,
+        "balanced_accuracy": 0.7806,
+        "macro_f1": 0.7428,
+        "accuracy": 0.7466,
+        "real_recall": 0.8939,
+        "fake_recall": 0.6672,
+        "errors": 0
+      },
+      "v2 inputs, frozen threshold": {
+        "n": 943,
+        "balanced_accuracy": 0.799,
+        "macro_f1": 0.7871,
+        "accuracy": 0.7996,
+        "real_recall": 0.797,
+        "fake_recall": 0.801,
+        "errors": 0
+      }
+    },
+    "calls_per_item": {
+      "2": 522,
+      "4": 421
+    },
+    "single_call_failed": 16,
+    "rows_with_failed_call": 27,
+    "failure_kinds": {
+      "stream ended early": 2,
+      "invalid JSON": 3,
+      "upload timeout or connection reset": 40,
+      "content moderation": 9
+    },
+    "recorded_tokens_uncached": 10935680,
+    "cv all": {
+      "v2 scorer": {
+        "n": 943,
+        "balanced_accuracy": 0.8302,
+        "macro_f1": 0.8086,
+        "accuracy": 0.8165,
+        "real_recall": 0.8758,
+        "fake_recall": 0.7847,
+        "errors": 0
+      },
+      "single call": {
+        "n": 943,
+        "balanced_accuracy": 0.7893,
+        "macro_f1": 0.7758,
+        "accuracy": 0.7879,
+        "real_recall": 0.7939,
+        "fake_recall": 0.7847,
+        "errors": 0
+      },
+      "mcnemar": {
+        "only_a_correct": 73,
+        "only_b_correct": 46,
+        "p_exact": 0.016786329118478202
+      },
+      "paired_ba": {
+        "diff": 0.0409,
+        "ci95": [
+          0.0186,
+          0.0643
+        ]
+      }
+    },
+    "cv without items whose single call failed": {
+      "v2 scorer": {
+        "n": 927,
+        "balanced_accuracy": 0.834,
+        "macro_f1": 0.8097,
+        "accuracy": 0.8166,
+        "real_recall": 0.8923,
+        "fake_recall": 0.7757,
+        "errors": 0
+      },
+      "single call": {
+        "n": 927,
+        "balanced_accuracy": 0.791,
+        "macro_f1": 0.7754,
+        "accuracy": 0.7864,
+        "real_recall": 0.8062,
+        "fake_recall": 0.7757,
+        "errors": 0
+      },
+      "mcnemar": {
+        "only_a_correct": 71,
+        "only_b_correct": 43,
+        "p_exact": 0.011118593448764594
+      },
+      "paired_ba": {
+        "diff": 0.0431,
+        "ci95": [
+          0.0201,
+          0.0668
+        ]
+      }
+    }
+  },
+  "holdout765": {
+    "single_call": {
+      "v1 hard output": {
+        "n": 765,
+        "balanced_accuracy": 0.7086,
+        "macro_f1": 0.6715,
+        "accuracy": 0.6732,
+        "real_recall": 0.8192,
+        "fake_recall": 0.598,
+        "errors": 6
+      },
+      "v2 inputs, raw TRUE/FALSE": {
+        "n": 765,
+        "balanced_accuracy": 0.7932,
+        "macro_f1": 0.7477,
+        "accuracy": 0.7516,
+        "real_recall": 0.9231,
+        "fake_recall": 0.6634,
+        "errors": 0
+      },
+      "v2 inputs, threshold 0.5": {
+        "n": 765,
+        "balanced_accuracy": 0.8022,
+        "macro_f1": 0.76,
+        "accuracy": 0.7647,
+        "real_recall": 0.9192,
+        "fake_recall": 0.6851,
+        "errors": 0
+      },
+      "v2 inputs, frozen threshold": {
+        "n": 765,
+        "balanced_accuracy": 0.834,
+        "macro_f1": 0.8183,
+        "accuracy": 0.8301,
+        "real_recall": 0.8462,
+        "fake_recall": 0.8218,
+        "errors": 0
+      }
+    },
+    "calls_per_item": {
+      "2": 459,
+      "4": 306
+    },
+    "single_call_failed": 4,
+    "rows_with_failed_call": 4,
+    "failure_kinds": {
+      "content moderation": 15
+    },
+    "recorded_tokens_uncached": 11492916,
+    "paired_balanced_accuracy": {
+      "v2 inputs, raw TRUE/FALSE - v1 hard output": {
+        "diff": 0.0846,
+        "ci95": [
+          0.0548,
+          0.1145
+        ]
+      },
+      "v2 inputs, threshold 0.5 - v1 hard output": {
+        "diff": 0.0936,
+        "ci95": [
+          0.0636,
+          0.1226
+        ]
+      },
+      "v2 inputs, frozen threshold - v2 inputs, threshold 0.5": {
+        "diff": 0.0318,
+        "ci95": [
+          0.0095,
+          0.0541
+        ]
+      },
+      "v2 inputs, frozen threshold - v2 inputs, raw TRUE/FALSE": {
+        "diff": 0.0407,
+        "ci95": [
+          0.0175,
+          0.0633
+        ]
+      },
+      "v2 scorer - v2 inputs, frozen threshold": {
+        "diff": 0.0021,
+        "ci95": [
+          -0.0204,
+          0.0255
+        ]
+      },
+      "v2 scorer - v1 hard output": {
+        "diff": 0.1274,
+        "ci95": [
+          0.0961,
+          0.157
+        ]
+      },
+      "agents only - v2 inputs, frozen threshold": {
+        "diff": -0.009,
+        "ci95": [
+          -0.0386,
+          0.0202
+        ]
+      }
+    },
+    "by_modality": {
+      "audio": {
+        "n": 54,
+        "gold": {
+          "REAL": 27,
+          "FAKE": 27
+        },
+        "v1 hard output": 0.6481,
+        "v2 inputs, raw TRUE/FALSE": 0.7222,
+        "v2 inputs, threshold 0.5": 0.7222,
+        "v2 inputs, frozen threshold": 0.8704,
+        "v2 scorer": 0.8333,
+        "agents only": 0.8333
+      },
+      "audio+image": {
+        "n": 78,
+        "gold": {
+          "REAL": 26,
+          "FAKE": 52
+        },
+        "v1 hard output": 0.6635,
+        "v2 inputs, raw TRUE/FALSE": 0.7788,
+        "v2 inputs, threshold 0.5": 0.7885,
+        "v2 inputs, frozen threshold": 0.8846,
+        "v2 scorer": 0.8654,
+        "agents only": 0.8365
+      },
+      "image": {
+        "n": 52,
+        "gold": {
+          "REAL": 26,
+          "FAKE": 26
+        },
+        "v1 hard output": 0.6731,
+        "v2 inputs, raw TRUE/FALSE": 0.7308,
+        "v2 inputs, threshold 0.5": 0.7308,
+        "v2 inputs, frozen threshold": 0.6923,
+        "v2 scorer": 0.7885,
+        "agents only": 0.8654
+      },
+      "text": {
+        "n": 65,
+        "gold": {
+          "REAL": 30,
+          "FAKE": 35
+        },
+        "v1 hard output": 0.7,
+        "v2 inputs, raw TRUE/FALSE": 0.8,
+        "v2 inputs, threshold 0.5": 0.8,
+        "v2 inputs, frozen threshold": 0.869,
+        "v2 scorer": 0.8429,
+        "agents only": 0.8429
+      },
+      "text+audio": {
+        "n": 84,
+        "gold": {
+          "REAL": 28,
+          "FAKE": 56
+        },
+        "v1 hard output": 0.75,
+        "v2 inputs, raw TRUE/FALSE": 0.875,
+        "v2 inputs, threshold 0.5": 0.9018,
+        "v2 inputs, frozen threshold": 0.9286,
+        "v2 scorer": 0.9375,
+        "agents only": 0.9375
+      },
+      "text+image": {
+        "n": 105,
+        "gold": {
+          "REAL": 35,
+          "FAKE": 70
+        },
+        "v1 hard output": 0.7214,
+        "v2 inputs, raw TRUE/FALSE": 0.8,
+        "v2 inputs, threshold 0.5": 0.8,
+        "v2 inputs, frozen threshold": 0.75,
+        "v2 scorer": 0.7429,
+        "agents only": 0.7286
+      },
+      "text+image+audio": {
+        "n": 108,
+        "gold": {
+          "REAL": 27,
+          "FAKE": 81
+        },
+        "v1 hard output": 0.6914,
+        "v2 inputs, raw TRUE/FALSE": 0.7469,
+        "v2 inputs, threshold 0.5": 0.7654,
+        "v2 inputs, frozen threshold": 0.8765,
+        "v2 scorer": 0.8827,
+        "agents only": 0.7963
+      },
+      "text+image+video": {
+        "n": 120,
+        "gold": {
+          "REAL": 28,
+          "FAKE": 92
+        },
+        "v1 hard output": 0.7158,
+        "v2 inputs, raw TRUE/FALSE": 0.8059,
+        "v2 inputs, threshold 0.5": 0.8098,
+        "v2 inputs, frozen threshold": 0.8012,
+        "v2 scorer": 0.8043,
+        "agents only": 0.8168
+      },
+      "text+video": {
+        "n": 99,
+        "gold": {
+          "REAL": 33,
+          "FAKE": 66
+        },
+        "v1 hard output": 0.75,
+        "v2 inputs, raw TRUE/FALSE": 0.8409,
+        "v2 inputs, threshold 0.5": 0.8409,
+        "v2 inputs, frozen threshold": 0.8409,
+        "v2 scorer": 0.8258,
+        "agents only": 0.7803
+      }
+    },
+    "image_only_tests": {
+      "agents only vs v2 inputs, frozen threshold": {
+        "mcnemar": {
+          "only_a_correct": 13,
+          "only_b_correct": 4,
+          "p_exact": 0.049041748046875
+        },
+        "paired_ba": {
+          "diff": 0.1731,
+          "ci95": [
+            0.0577,
+            0.2885
+          ]
+        }
+      },
+      "agents only vs v2 inputs, raw TRUE/FALSE": {
+        "mcnemar": {
+          "only_a_correct": 10,
+          "only_b_correct": 3,
+          "p_exact": 0.09228515625
+        },
+        "paired_ba": {
+          "diff": 0.1346,
+          "ci95": [
+            0.0192,
+            0.25
+          ]
+        }
+      }
+    }
+  },
+  "overlap": {
+    "source_groups_tuning_vs_holdout": 0,
+    "source_groups_tuning_vs_test1007": 0,
+    "orphan_items": {
+      "train": 134,
+      "test1007": 166,
+      "holdout": 134
+    },
+    "holdout_items_sharing_title_with_tuning": 94,
+    "distinct_titles": 45,
+    "shared_by_modality": {
+      "text+video": 24,
+      "text+image+video": 70
+    },
+    "tuning_source_is_orphan": 49,
+    "holdout_items_sharing_title_with_tuning180": 19,
+    "holdout_without_shared_titles": {
+      "v1 hard output": {
+        "n": 671,
+        "balanced_accuracy": 0.6928,
+        "macro_f1": 0.6582,
+        "accuracy": 0.6572,
+        "real_recall": 0.8245,
+        "fake_recall": 0.561,
+        "errors": 4
+      },
+      "v2 inputs, raw TRUE/FALSE": {
+        "n": 671,
+        "balanced_accuracy": 0.774,
+        "macro_f1": 0.731,
+        "accuracy": 0.7317,
+        "real_recall": 0.9306,
+        "fake_recall": 0.6174,
+        "errors": 0
+      },
+      "v2 inputs, threshold 0.5": {
+        "n": 671,
+        "balanced_accuracy": 0.7849,
+        "macro_f1": 0.7454,
+        "accuracy": 0.7466,
+        "real_recall": 0.9265,
+        "fake_recall": 0.6432,
+        "errors": 0
+      },
+      "v2 inputs, frozen threshold": {
+        "n": 671,
+        "balanced_accuracy": 0.8268,
+        "macro_f1": 0.8124,
+        "accuracy": 0.8197,
+        "real_recall": 0.8531,
+        "fake_recall": 0.8005,
+        "errors": 0
+      },
+      "v2 scorer": {
+        "n": 671,
+        "balanced_accuracy": 0.8266,
+        "macro_f1": 0.7983,
+        "accuracy": 0.8018,
+        "real_recall": 0.9184,
+        "fake_recall": 0.7347,
+        "errors": 0
+      },
+      "agents only": {
+        "n": 671,
+        "balanced_accuracy": 0.8154,
+        "macro_f1": 0.7828,
+        "accuracy": 0.7854,
+        "real_recall": 0.9265,
+        "fake_recall": 0.7042,
+        "errors": 0
+      }
+    }
+  },
+  "metadata_probe_tuning943": {
+    "date": 0.561,
+    "text and title length": 0.5762,
+    "modality and media counts": 0.5736,
+    "all": 0.604
+  }
+}

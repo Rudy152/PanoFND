@@ -19,13 +19,25 @@ labelled media to qwen3.8-omni-flash, adds pairwise and unimodal evidence agents
 and scores the evidence with a trainable logistic-regression scorer under nested,
 source-grouped cross-validation. The original `panoagent` package is unchanged.
 
-Results on the frozen 765-item clean holdout, which was run once after the freeze:
+Results on the 765-item holdout (evidence extracted once, after the freeze; later analyses
+reuse the same predictions):
 
 | System | Balanced Acc. [95% CI] | Macro-F1 |
 |---|---:|---:|
 | v2 scorer (primary) | 83.6% [81.1, 86.2] | 80.6% |
-| single call, same v2 inputs | 83.4% [80.5, 86.2] | 81.8% |
-| single call, v1 inputs (transcripts + frames) | 70.9% [67.8, 74.1] | 67.1% |
+| single call, same v2 inputs, threshold chosen on tuning | 83.4% [80.5, 86.2] | 81.8% |
+| single call, same v2 inputs, raw TRUE/FALSE output (post hoc) | 79.3% | 74.8% |
+| single call, v1 inputs (transcripts + frames), raw TRUE/FALSE output | 70.9% [67.8, 74.1] | 67.1% |
+
+Caveats (corrected 2026-11-24):
+
+- The v1 row is raw model output while the primary v2 rows use a threshold or scorer fitted
+  on the tuning set, so the gap is not due to the inputs alone. Labels, native audio, frame
+  count, soundtrack and prompt changed together and have not been ablated separately.
+- The scorer beats the single call by 4.1 points in cross-validation on tuning, but only by
+  0.2 points [-2.0, +2.6] on the holdout.
+- No source group is shared with tuning, but 94 holdout items (all video) share a title with
+  a tuning item. Without them (n = 671): v2 82.7%, single call 82.7%, v1 69.3%.
 
 - Experiment report and conclusions: [artifacts/EXPERIMENT_REPORT_v2_20261122.md](artifacts/EXPERIMENT_REPORT_v2_20261122.md)
 - Architecture: [artifacts/V2_ARCHITECTURE_REPORT.md](artifacts/V2_ARCHITECTURE_REPORT.md)
@@ -35,8 +47,9 @@ Results on the frozen 765-item clean holdout, which was run once after the freez
 
 - `description` is annotation/audit metadata and is **never** passed to the
   detector. Many fake rows explicitly reveal the label in this field.
-- Splits are source-grouped so real articles and their generated fake variants
-  cannot cross train/validation/test boundaries.
+- Splits are source-grouped so that items with the same source URL cannot cross
+  train/validation/test boundaries. Items without a usable URL, or the same story under
+  another URL, are not caught: see the shared-title caveat above.
 - The loader repairs filename zero-padding errors in the JSON at runtime while
   leaving the source dataset unchanged.
 - Raw model responses and every agent-stage response are cached for
