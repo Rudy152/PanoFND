@@ -1,0 +1,21 @@
+{
+  "threshold": 0.32014378035150104,
+  "n_tuning_ok": 939,
+  "n_tuning_failed": 4,
+  "tuning_in_sample_ba": {
+    "frozen": 0.7295978872888536,
+    "0.5": 0.7207334695301211
+  },
+  "rule": "scorer._best_threshold on all successful tuning items, as for the v2 single-call threshold",
+  "tuning_results_sha256": "60189309b08f29897cc68f8e6a3989c408a4c2931e8d64b1f9111b7c589fe134",
+  "code_sha256": {
+    "panoagent_v2/ablation_e.py": "a3483b7c655c6fbabe068e40a5598dcc5ccc72119dcdea7b4d1ecfe923060cce",
+    "panoagent_v2/baseline_s0.py": "f46dbb7db85cf3efe85eeb422b2d882fa4c79b9117cc8dafe74f8fe866bc176c",
+    "panoagent/prompts.py": "6a7924c891e10a9135fad74ff42ae2db905d692025c0fab56e0c9d9dd9a4efae",
+    "panoagent/media.py": "a63286a6be4a53e0092ea99273f1d129c94877c6098616796da6f0c45133f595",
+    "panoagent_v2/prompts.py": "da649e5c80dcf40ca3e4e3582202817736ba9297373506a7b13cca800a63820f",
+    "panoagent_v2/client.py": "2d549071acb82b953c6dddb04ad2fb96bc0a923abbe8963b788c282d989ce11c"
+  },
+  "model_id": "qwen3.8-omni-flash",
+  "frozen_at": "2026-11-25 22:21:30"
+}

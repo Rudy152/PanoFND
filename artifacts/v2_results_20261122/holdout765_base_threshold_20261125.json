@@ -1,0 +1,438 @@
+{
+  "frozen_s0": {
+    "threshold": 0.32014378035150104,
+    "n_tuning_ok": 939,
+    "n_tuning_failed": 4,
+    "tuning_in_sample_ba": {
+      "frozen": 0.7295978872888536,
+      "0.5": 0.7207334695301211
+    },
+    "rule": "scorer._best_threshold on all successful tuning items, as for the v2 single-call threshold",
+    "tuning_results_sha256": "60189309b08f29897cc68f8e6a3989c408a4c2931e8d64b1f9111b7c589fe134",
+    "code_sha256": {
+      "panoagent_v2/ablation_e.py": "a3483b7c655c6fbabe068e40a5598dcc5ccc72119dcdea7b4d1ecfe923060cce",
+      "panoagent_v2/baseline_s0.py": "f46dbb7db85cf3efe85eeb422b2d882fa4c79b9117cc8dafe74f8fe866bc176c",
+      "panoagent/prompts.py": "6a7924c891e10a9135fad74ff42ae2db905d692025c0fab56e0c9d9dd9a4efae",
+      "panoagent/media.py": "a63286a6be4a53e0092ea99273f1d129c94877c6098616796da6f0c45133f595",
+      "panoagent_v2/prompts.py": "da649e5c80dcf40ca3e4e3582202817736ba9297373506a7b13cca800a63820f",
+      "panoagent_v2/client.py": "2d549071acb82b953c6dddb04ad2fb96bc0a923abbe8963b788c282d989ce11c"
+    },
+    "model_id": "qwen3.8-omni-flash",
+    "frozen_at": "2026-11-25 22:21:30"
+  },
+  "n_failed_s0": 6,
+  "s0_failures": {
+    "1155": "RuntimeError: HTTP 400: data: {\"error\":{\"code\":\"data_inspection_failed\",\"param\":null,\"message\":\"Input text data may cont",
+    "1163": "RuntimeError: HTTP 400: data: {\"error\":{\"code\":\"data_inspection_failed\",\"param\":null,\"message\":\"Input text data may cont",
+    "1571": "RuntimeError: HTTP 400: data: {\"error\":{\"code\":\"data_inspection_failed\",\"param\":null,\"message\":\"Input text, image data m",
+    "1646": "RuntimeError: HTTP 400: data: {\"error\":{\"code\":\"data_inspection_failed\",\"param\":null,\"message\":\"Input text, image data m",
+    "1716": "RuntimeError: HTTP 400: data: {\"error\":{\"code\":\"data_inspection_failed\",\"param\":null,\"message\":\"Input image data may con",
+    "1721": "RuntimeError: HTTP 400: data: {\"error\":{\"code\":\"data_inspection_failed\",\"param\":null,\"message\":\"Input text, image data m"
+  },
+  "subsets": {
+    "all 765": {
+      "n": 765,
+      "systems": {
+        "v1 hard output": {
+          "balanced_accuracy": 0.7086252856054835,
+          "macro_f1": 0.6714812103507739,
+          "real_recall": 0.8192307692307692,
+          "fake_recall": 0.598019801980198,
+          "errors": 6,
+          "ba_ci95": [
+            0.6766360434120335,
+            0.74002284843869
+          ]
+        },
+        "S0 raw TRUE/FALSE": {
+          "balanced_accuracy": 0.7292460015232293,
+          "macro_f1": 0.6942433359355127,
+          "real_recall": 0.8307692307692308,
+          "fake_recall": 0.6277227722772277,
+          "errors": 6,
+          "ba_ci95": [
+            0.696724105102818,
+            0.7597105864432597
+          ]
+        },
+        "S0 threshold 0.5": {
+          "balanced_accuracy": 0.7283701447067783,
+          "macro_f1": 0.6950332173362859,
+          "real_recall": 0.823076923076923,
+          "fake_recall": 0.6336633663366337,
+          "errors": 6,
+          "ba_ci95": [
+            0.6954479246001524,
+            0.7587776085300838
+          ]
+        },
+        "S0 frozen threshold": {
+          "balanced_accuracy": 0.7028179741051028,
+          "macro_f1": 0.6947963934233012,
+          "real_recall": 0.676923076923077,
+          "fake_recall": 0.7287128712871287,
+          "errors": 6,
+          "ba_ci95": [
+            0.6678027418126428,
+            0.7370206587966488
+          ]
+        },
+        "v2 inputs, raw TRUE/FALSE": {
+          "balanced_accuracy": 0.7932216298552932,
+          "macro_f1": 0.7477438389448109,
+          "real_recall": 0.9230769230769231,
+          "fake_recall": 0.6633663366336634,
+          "errors": 0,
+          "ba_ci95": [
+            0.7665432216298552,
+            0.8193288271134805
+          ]
+        },
+        "v2 inputs, frozen threshold": {
+          "balanced_accuracy": 0.8339680121858339,
+          "macro_f1": 0.8182565789473684,
+          "real_recall": 0.8461538461538461,
+          "fake_recall": 0.8217821782178217,
+          "errors": 0,
+          "ba_ci95": [
+            0.8057106816450876,
+            0.8604736290936785
+          ]
+        },
+        "v2 scorer": {
+          "balanced_accuracy": 0.8360243716679361,
+          "macro_f1": 0.8055977608956417,
+          "real_recall": 0.9076923076923077,
+          "fake_recall": 0.7643564356435644,
+          "errors": 0,
+          "ba_ci95": [
+            0.8106802170601676,
+            0.8602084920030464
+          ]
+        }
+      },
+      "paired_ba": {
+        "S0 frozen threshold - v1 hard output": {
+          "diff": -0.0058073115003807185,
+          "ci95": [
+            -0.03499904798172133,
+            0.022167269611576522
+          ]
+        },
+        "S0 frozen threshold - S0 threshold 0.5": {
+          "diff": -0.025552170601675472,
+          "ci95": [
+            -0.05067783701447075,
+            -0.000904893373952747
+          ]
+        },
+        "S0 frozen threshold - S0 raw TRUE/FALSE": {
+          "diff": -0.026428027418126443,
+          "ci95": [
+            -0.05329541127189644,
+            -0.0011409939070830843
+          ]
+        },
+        "S0 raw TRUE/FALSE - v1 hard output": {
+          "diff": 0.020620715917745724,
+          "ci95": [
+            -0.002693259710586512,
+            0.04573495811119577
+          ]
+        },
+        "v2 inputs, frozen threshold - S0 frozen threshold": {
+          "diff": 0.1311500380807311,
+          "ci95": [
+            0.09875761614622999,
+            0.16449685833968009
+          ]
+        },
+        "v2 inputs, raw TRUE/FALSE - S0 raw TRUE/FALSE": {
+          "diff": 0.06397562833206394,
+          "ci95": [
+            0.03676694592536178,
+            0.0921744097486672
+          ]
+        },
+        "v2 scorer - S0 frozen threshold": {
+          "diff": 0.13320639756283326,
+          "ci95": [
+            0.0996268088347297,
+            0.16723153084539233
+          ]
+        }
+      }
+    },
+    "without titles shared with tuning": {
+      "n": 671,
+      "systems": {
+        "v1 hard output": {
+          "balanced_accuracy": 0.6927613298840662,
+          "macro_f1": 0.6581748734076487,
+          "real_recall": 0.8244897959183674,
+          "fake_recall": 0.5610328638497653,
+          "errors": 4,
+          "ba_ci95": [
+            0.6600479064865382,
+            0.7255261329884066
+          ]
+        },
+        "S0 raw TRUE/FALSE": {
+          "balanced_accuracy": 0.7185302289930056,
+          "macro_f1": 0.6860185101985803,
+          "real_recall": 0.8408163265306122,
+          "fake_recall": 0.596244131455399,
+          "errors": 4,
+          "ba_ci95": [
+            0.6855165516910989,
+            0.7499174810769379
+          ]
+        },
+        "S0 threshold 0.5": {
+          "balanced_accuracy": 0.7200105394270384,
+          "macro_f1": 0.688747886462568,
+          "real_recall": 0.8367346938775511,
+          "fake_recall": 0.6032863849765259,
+          "errors": 4,
+          "ba_ci95": [
+            0.687597369933889,
+            0.7515452237232921
+          ]
+        },
+        "S0 frozen threshold": {
+          "balanced_accuracy": 0.6981843441601994,
+          "macro_f1": 0.690610228160941,
+          "real_recall": 0.689795918367347,
+          "fake_recall": 0.7065727699530516,
+          "errors": 4,
+          "ba_ci95": [
+            0.6625693446392641,
+            0.7339084507042253
+          ]
+        },
+        "v2 inputs, raw TRUE/FALSE": {
+          "balanced_accuracy": 0.7739915684583693,
+          "macro_f1": 0.7310118124966594,
+          "real_recall": 0.9306122448979591,
+          "fake_recall": 0.6173708920187794,
+          "errors": 0,
+          "ba_ci95": [
+            0.7450582063811441,
+            0.800431397911277
+          ]
+        },
+        "v2 inputs, frozen threshold": {
+          "balanced_accuracy": 0.8267653540289355,
+          "macro_f1": 0.8124126362873918,
+          "real_recall": 0.8530612244897959,
+          "fake_recall": 0.8004694835680751,
+          "errors": 0,
+          "ba_ci95": [
+            0.7987004167864328,
+            0.8553921145923157
+          ]
+        },
+        "v2 scorer": {
+          "balanced_accuracy": 0.8265545654881671,
+          "macro_f1": 0.798319536629627,
+          "real_recall": 0.9183673469387755,
+          "fake_recall": 0.7347417840375586,
+          "errors": 0,
+          "ba_ci95": [
+            0.79899875443135,
+            0.8523324470633323
+          ]
+        }
+      },
+      "paired_ba": {
+        "S0 frozen threshold - v1 hard output": {
+          "diff": 0.00542301427613312,
+          "ci95": [
+            -0.024376137779055305,
+            0.0344101513844973
+          ]
+        },
+        "S0 frozen threshold - S0 threshold 0.5": {
+          "diff": -0.021826195266839044,
+          "ci95": [
+            -0.04897132796780687,
+            0.002663600651528264
+          ]
+        },
+        "S0 frozen threshold - S0 raw TRUE/FALSE": {
+          "diff": -0.020345884832806194,
+          "ci95": [
+            -0.04831309284277106,
+            0.003944021270479957
+          ]
+        },
+        "S0 raw TRUE/FALSE - v1 hard output": {
+          "diff": 0.025768899108939314,
+          "ci95": [
+            0.0006068554182236456,
+            0.05097729232538084
+          ]
+        },
+        "v2 inputs, frozen threshold - S0 frozen threshold": {
+          "diff": 0.1285810098687361,
+          "ci95": [
+            0.09402162977867205,
+            0.16419732681805113
+          ]
+        },
+        "v2 inputs, raw TRUE/FALSE - S0 raw TRUE/FALSE": {
+          "diff": 0.05546133946536369,
+          "ci95": [
+            0.026164965986394572,
+            0.08333776468333808
+          ]
+        },
+        "v2 scorer - S0 frozen threshold": {
+          "diff": 0.12837022132796772,
+          "ci95": [
+            0.09386988598256206,
+            0.16404163073680172
+          ]
+        }
+      }
+    },
+    "S0 succeeded": {
+      "n": 759,
+      "systems": {
+        "v1 hard output": {
+          "balanced_accuracy": 0.7131969111969112,
+          "macro_f1": 0.6740425232328922,
+          "real_recall": 0.8223938223938224,
+          "fake_recall": 0.604,
+          "errors": 0,
+          "ba_ci95": [
+            0.6809596525096525,
+            0.7457962355212354
+          ]
+        },
+        "S0 raw TRUE/FALSE": {
+          "balanced_accuracy": 0.733988416988417,
+          "macro_f1": 0.6968721283664381,
+          "real_recall": 0.833976833976834,
+          "fake_recall": 0.634,
+          "errors": 0,
+          "ba_ci95": [
+            0.7040256756756758,
+            0.7649470077220077
+          ]
+        },
+        "S0 threshold 0.5": {
+          "balanced_accuracy": 0.7331274131274131,
+          "macro_f1": 0.6976604201152529,
+          "real_recall": 0.8262548262548263,
+          "fake_recall": 0.64,
+          "errors": 0,
+          "ba_ci95": [
+            0.7026816602316602,
+            0.7637851351351351
+          ]
+        },
+        "S0 frozen threshold": {
+          "balanced_accuracy": 0.7077683397683397,
+          "macro_f1": 0.6973667373246764,
+          "real_recall": 0.6795366795366795,
+          "fake_recall": 0.736,
+          "errors": 0,
+          "ba_ci95": [
+            0.6743225868725868,
+            0.7420073359073359
+          ]
+        },
+        "v2 inputs, raw TRUE/FALSE": {
+          "balanced_accuracy": 0.7943899613899614,
+          "macro_f1": 0.7497853661116449,
+          "real_recall": 0.9227799227799228,
+          "fake_recall": 0.666,
+          "errors": 0,
+          "ba_ci95": [
+            0.7675967181467181,
+            0.8200459459459458
+          ]
+        },
+        "v2 inputs, frozen threshold": {
+          "balanced_accuracy": 0.8347104247104247,
+          "macro_f1": 0.818676953448362,
+          "real_recall": 0.8494208494208494,
+          "fake_recall": 0.82,
+          "errors": 0,
+          "ba_ci95": [
+            0.806473166023166,
+            0.8613664092664092
+          ]
+        },
+        "v2 scorer": {
+          "balanced_accuracy": 0.8366679536679537,
+          "macro_f1": 0.8068866084301586,
+          "real_recall": 0.9073359073359073,
+          "fake_recall": 0.766,
+          "errors": 0,
+          "ba_ci95": [
+            0.8097298262548263,
+            0.8629747104247104
+          ]
+        }
+      },
+      "paired_ba": {
+        "S0 frozen threshold - v1 hard output": {
+          "diff": -0.005428571428571449,
+          "ci95": [
+            -0.034669305019305006,
+            0.02488513513513515
+          ]
+        },
+        "S0 frozen threshold - S0 threshold 0.5": {
+          "diff": -0.025359073359073392,
+          "ci95": [
+            -0.04980482625482627,
+            -0.0017725868725869366
+          ]
+        },
+        "S0 frozen threshold - S0 raw TRUE/FALSE": {
+          "diff": -0.026220077220077243,
+          "ci95": [
+            -0.051664092664092665,
+            -0.0009845559845559348
+          ]
+        },
+        "S0 raw TRUE/FALSE - v1 hard output": {
+          "diff": 0.020791505791505793,
+          "ci95": [
+            -0.0026559845559845307,
+            0.04623899613899621
+          ]
+        },
+        "v2 inputs, frozen threshold - S0 frozen threshold": {
+          "diff": 0.12694208494208492,
+          "ci95": [
+            0.09291332046332049,
+            0.16042702702702696
+          ]
+        },
+        "v2 inputs, raw TRUE/FALSE - S0 raw TRUE/FALSE": {
+          "diff": 0.06040154440154444,
+          "ci95": [
+            0.032679536679536714,
+            0.08770830115830126
+          ]
+        },
+        "v2 scorer - S0 frozen threshold": {
+          "diff": 0.1288996138996139,
+          "ci95": [
+            0.09399942084942081,
+            0.1632105212355213
+          ]
+        }
+      }
+    }
+  },
+  "S0_raw_vs_v1_same_label": 0.8919631093544137,
+  "usage": {
+    "prompt_tokens": 2647508,
+    "completion_tokens": 1518
+  }
+}
