@@ -1,0 +1,805 @@
+{
+  "holdout765": {
+    "n": 765,
+    "gold": {
+      "REAL": 260,
+      "FAKE": 505
+    },
+    "systems": {
+      "qwen3.5-27b (v1 protocol)": {
+        "n": 765,
+        "real_recall": 0.6076923076923076,
+        "fake_recall": 0.6831683168316832,
+        "balanced_accuracy": 0.6454303122619954,
+        "macro_f1": 0.6375586339322452,
+        "accuracy": 0.657516339869281,
+        "fake_as_real": 157,
+        "real_as_fake": 101,
+        "errors": 4,
+        "ci95": [
+          0.6086493821460282,
+          0.6818281233380978
+        ]
+      },
+      "qwen3.8-omni-flash (v1 protocol)": {
+        "n": 765,
+        "real_recall": 0.8192307692307692,
+        "fake_recall": 0.598019801980198,
+        "balanced_accuracy": 0.7086252856054835,
+        "macro_f1": 0.6714812103507739,
+        "accuracy": 0.673202614379085,
+        "fake_as_real": 198,
+        "real_as_fake": 46,
+        "errors": 6,
+        "ci95": [
+          0.6775131038757989,
+          0.7410887227448639
+        ]
+      },
+      "v2 scorer (reference)": {
+        "n": 765,
+        "real_recall": 0.9076923076923077,
+        "fake_recall": 0.7643564356435644,
+        "balanced_accuracy": 0.8360243716679361,
+        "macro_f1": 0.8055977608956417,
+        "accuracy": 0.8130718954248366,
+        "fake_as_real": 119,
+        "real_as_fake": 24,
+        "errors": 0,
+        "ci95": [
+          0.8105900632462749,
+          0.8620512197182868
+        ]
+      },
+      "v2 scorer (refusals as errors)": {
+        "n": 765,
+        "real_recall": 0.9038461538461539,
+        "fake_recall": 0.7623762376237624,
+        "balanced_accuracy": 0.8331111957349582,
+        "macro_f1": 0.8052123110367415,
+        "accuracy": 0.8104575163398693,
+        "fake_as_real": 117,
+        "real_as_fake": 24,
+        "errors": 4,
+        "ci95": [
+          0.8072015652137284,
+          0.8595173728142195
+        ]
+      }
+    },
+    "mcnemar": {
+      "qwen3.5-27b (v1 protocol) || qwen3.8-omni-flash (v1 protocol)": {
+        "only_a_correct": 99,
+        "only_b_correct": 111,
+        "p_exact": 0.44788702100067485
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 46,
+        "only_b_correct": 165,
+        "p_exact": 6.264821781886142e-17
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 46,
+        "only_b_correct": 163,
+        "p_exact": 1.5373350457687714e-16
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 31,
+        "only_b_correct": 138,
+        "p_exact": 2.5735936320470336e-17
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 31,
+        "only_b_correct": 136,
+        "p_exact": 6.882928563681396e-17
+      },
+      "v2 scorer (reference) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 2,
+        "only_b_correct": 0,
+        "p_exact": 0.5
+      }
+    }
+  },
+  "holdout video": {
+    "n": 219,
+    "gold": {
+      "REAL": 61,
+      "FAKE": 158
+    },
+    "systems": {
+      "qwen3.5-27b (v1 protocol)": {
+        "n": 219,
+        "real_recall": 0.7049180327868853,
+        "fake_recall": 0.7468354430379747,
+        "balanced_accuracy": 0.72587673791243,
+        "macro_f1": 0.7076949144337132,
+        "accuracy": 0.7351598173515982,
+        "fake_as_real": 37,
+        "real_as_fake": 17,
+        "errors": 4,
+        "ci95": [
+          0.6617291426617227,
+          0.7940440569214153
+        ]
+      },
+      "qwen3.8-omni-flash (v1 protocol)": {
+        "n": 219,
+        "real_recall": 0.7868852459016393,
+        "fake_recall": 0.689873417721519,
+        "balanced_accuracy": 0.7383793318115792,
+        "macro_f1": 0.7044064937803078,
+        "accuracy": 0.7168949771689498,
+        "fake_as_real": 44,
+        "real_as_fake": 12,
+        "errors": 6,
+        "ci95": [
+          0.6743138854609443,
+          0.8014229426047148
+        ]
+      },
+      "Fact-R1 (4-bit, 8 frames + title)": {
+        "n": 219,
+        "real_recall": 0.7213114754098361,
+        "fake_recall": 0.6455696202531646,
+        "balanced_accuracy": 0.6834405478315003,
+        "macro_f1": 0.643231046931408,
+        "accuracy": 0.6666666666666666,
+        "fake_as_real": 55,
+        "real_as_fake": 17,
+        "errors": 1,
+        "ci95": [
+          0.614309232261453,
+          0.7490598832861328
+        ]
+      },
+      "v2 scorer (reference)": {
+        "n": 219,
+        "real_recall": 0.8360655737704918,
+        "fake_recall": 0.810126582278481,
+        "balanced_accuracy": 0.8230960780244865,
+        "macro_f1": 0.7915873620098972,
+        "accuracy": 0.817351598173516,
+        "fake_as_real": 30,
+        "real_as_fake": 10,
+        "errors": 0,
+        "ci95": [
+          0.7628457677533157,
+          0.8767297685654661
+        ]
+      },
+      "v2 scorer (refusals as errors)": {
+        "n": 219,
+        "real_recall": 0.819672131147541,
+        "fake_recall": 0.8037974683544303,
+        "balanced_accuracy": 0.8117347997509856,
+        "macro_f1": 0.7902207047920986,
+        "accuracy": 0.8082191780821918,
+        "fake_as_real": 28,
+        "real_as_fake": 10,
+        "errors": 4,
+        "ci95": [
+          0.7481116444150208,
+          0.8671219289050718
+        ]
+      }
+    },
+    "mcnemar": {
+      "qwen3.5-27b (v1 protocol) || qwen3.8-omni-flash (v1 protocol)": {
+        "only_a_correct": 23,
+        "only_b_correct": 19,
+        "p_exact": 0.6439689563703723
+      },
+      "qwen3.5-27b (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 45,
+        "only_b_correct": 30,
+        "p_exact": 0.10534226887460488
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 11,
+        "only_b_correct": 29,
+        "p_exact": 0.006426576095691416
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 11,
+        "only_b_correct": 27,
+        "p_exact": 0.013852965261321515
+      },
+      "qwen3.8-omni-flash (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 39,
+        "only_b_correct": 28,
+        "p_exact": 0.22154872964481115
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 13,
+        "only_b_correct": 35,
+        "p_exact": 0.0020881073339964473
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 13,
+        "only_b_correct": 33,
+        "p_exact": 0.004533861582189047
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (reference)": {
+        "only_a_correct": 20,
+        "only_b_correct": 53,
+        "p_exact": 0.0001416370725355272
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 21,
+        "only_b_correct": 52,
+        "p_exact": 0.0003713401159383162
+      },
+      "v2 scorer (reference) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 2,
+        "only_b_correct": 0,
+        "p_exact": 0.5
+      }
+    }
+  },
+  "holdout video, with source URL (no FakeTT-style)": {
+    "n": 150,
+    "gold": {
+      "REAL": 61,
+      "FAKE": 89
+    },
+    "systems": {
+      "qwen3.5-27b (v1 protocol)": {
+        "n": 150,
+        "real_recall": 0.7049180327868853,
+        "fake_recall": 0.6741573033707865,
+        "balanced_accuracy": 0.6895376680788359,
+        "macro_f1": 0.6922150139017609,
+        "accuracy": 0.6866666666666666,
+        "fake_as_real": 26,
+        "real_as_fake": 17,
+        "errors": 4,
+        "ci95": [
+          0.6148307501341922,
+          0.7635536495152555
+        ]
+      },
+      "qwen3.8-omni-flash (v1 protocol)": {
+        "n": 150,
+        "real_recall": 0.7868852459016393,
+        "fake_recall": 0.5393258426966292,
+        "balanced_accuracy": 0.6631055442991343,
+        "macro_f1": 0.6486782632516093,
+        "accuracy": 0.64,
+        "fake_as_real": 38,
+        "real_as_fake": 12,
+        "errors": 4,
+        "ci95": [
+          0.5903220348381958,
+          0.7347620434649644
+        ]
+      },
+      "Fact-R1 (4-bit, 8 frames + title)": {
+        "n": 150,
+        "real_recall": 0.7213114754098361,
+        "fake_recall": 0.48314606741573035,
+        "balanced_accuracy": 0.6022287714127832,
+        "macro_f1": 0.5799813325036669,
+        "accuracy": 0.58,
+        "fake_as_real": 46,
+        "real_as_fake": 17,
+        "errors": 0,
+        "ci95": [
+          0.5249972943722944,
+          0.6783886745822396
+        ]
+      },
+      "v2 scorer (reference)": {
+        "n": 150,
+        "real_recall": 0.8360655737704918,
+        "fake_recall": 0.7415730337078652,
+        "balanced_accuracy": 0.7888193037391785,
+        "macro_f1": 0.7777777777777778,
+        "accuracy": 0.78,
+        "fake_as_real": 23,
+        "real_as_fake": 10,
+        "errors": 0,
+        "ci95": [
+          0.7194367128039334,
+          0.8497541961081514
+        ]
+      },
+      "v2 scorer (refusals as errors)": {
+        "n": 150,
+        "real_recall": 0.819672131147541,
+        "fake_recall": 0.7303370786516854,
+        "balanced_accuracy": 0.7750046048996132,
+        "macro_f1": 0.775129342202513,
+        "accuracy": 0.7666666666666667,
+        "fake_as_real": 21,
+        "real_as_fake": 10,
+        "errors": 4,
+        "ci95": [
+          0.7003950508514175,
+          0.836111111111111
+        ]
+      }
+    },
+    "mcnemar": {
+      "qwen3.5-27b (v1 protocol) || qwen3.8-omni-flash (v1 protocol)": {
+        "only_a_correct": 21,
+        "only_b_correct": 14,
+        "p_exact": 0.31050465907901525
+      },
+      "qwen3.5-27b (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 37,
+        "only_b_correct": 21,
+        "p_exact": 0.04794032407166697
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 11,
+        "only_b_correct": 25,
+        "p_exact": 0.028816719655878842
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 11,
+        "only_b_correct": 23,
+        "p_exact": 0.05761267291381955
+      },
+      "qwen3.8-omni-flash (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 30,
+        "only_b_correct": 21,
+        "p_exact": 0.2624375357110438
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 11,
+        "only_b_correct": 32,
+        "p_exact": 0.001913961001264397
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 11,
+        "only_b_correct": 30,
+        "p_exact": 0.00432400493446039
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (reference)": {
+        "only_a_correct": 15,
+        "only_b_correct": 45,
+        "p_exact": 0.00013451408092849532
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 16,
+        "only_b_correct": 44,
+        "p_exact": 0.00039404324272610154
+      },
+      "v2 scorer (reference) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 2,
+        "only_b_correct": 0,
+        "p_exact": 0.5
+      }
+    }
+  },
+  "holdout video, text+video": {
+    "n": 99,
+    "gold": {
+      "REAL": 33,
+      "FAKE": 66
+    },
+    "systems": {
+      "qwen3.5-27b (v1 protocol)": {
+        "n": 99,
+        "real_recall": 0.8787878787878788,
+        "fake_recall": 0.6363636363636364,
+        "balanced_accuracy": 0.7575757575757576,
+        "macro_f1": 0.7122093023255813,
+        "accuracy": 0.7171717171717171,
+        "fake_as_real": 24,
+        "real_as_fake": 4,
+        "errors": 0,
+        "ci95": [
+          0.6746577997396142,
+          0.8409090909090909
+        ]
+      },
+      "qwen3.8-omni-flash (v1 protocol)": {
+        "n": 99,
+        "real_recall": 0.8484848484848485,
+        "fake_recall": 0.6515151515151515,
+        "balanced_accuracy": 0.75,
+        "macro_f1": 0.7186563970902867,
+        "accuracy": 0.7171717171717171,
+        "fake_as_real": 21,
+        "real_as_fake": 5,
+        "errors": 2,
+        "ci95": [
+          0.6645050016534391,
+          0.8328054298642533
+        ]
+      },
+      "Fact-R1 (4-bit, 8 frames + title)": {
+        "n": 99,
+        "real_recall": 0.8484848484848485,
+        "fake_recall": 0.5151515151515151,
+        "balanced_accuracy": 0.6818181818181819,
+        "macro_f1": 0.6248847926267281,
+        "accuracy": 0.6262626262626263,
+        "fake_as_real": 32,
+        "real_as_fake": 5,
+        "errors": 0,
+        "ci95": [
+          0.5935875068418172,
+          0.7647537878787878
+        ]
+      },
+      "v2 scorer (reference)": {
+        "n": 99,
+        "real_recall": 0.9090909090909091,
+        "fake_recall": 0.7424242424242424,
+        "balanced_accuracy": 0.8257575757575757,
+        "macro_f1": 0.7902542372881356,
+        "accuracy": 0.797979797979798,
+        "fake_as_real": 17,
+        "real_as_fake": 3,
+        "errors": 0,
+        "ci95": [
+          0.7497862376166925,
+          0.8990883859357696
+        ]
+      },
+      "v2 scorer (refusals as errors)": {
+        "n": 99,
+        "real_recall": 0.9090909090909091,
+        "fake_recall": 0.7424242424242424,
+        "balanced_accuracy": 0.8257575757575757,
+        "macro_f1": 0.7902542372881356,
+        "accuracy": 0.797979797979798,
+        "fake_as_real": 17,
+        "real_as_fake": 3,
+        "errors": 0,
+        "ci95": [
+          0.7497862376166925,
+          0.8990883859357696
+        ]
+      }
+    },
+    "mcnemar": {
+      "qwen3.5-27b (v1 protocol) || qwen3.8-omni-flash (v1 protocol)": {
+        "only_a_correct": 7,
+        "only_b_correct": 7,
+        "p_exact": 1.0
+      },
+      "qwen3.5-27b (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 18,
+        "only_b_correct": 9,
+        "p_exact": 0.12207812070846558
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 4,
+        "only_b_correct": 12,
+        "p_exact": 0.076812744140625
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 4,
+        "only_b_correct": 12,
+        "p_exact": 0.076812744140625
+      },
+      "qwen3.8-omni-flash (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 21,
+        "only_b_correct": 12,
+        "p_exact": 0.16275565745308995
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 5,
+        "only_b_correct": 13,
+        "p_exact": 0.09625244140625
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 5,
+        "only_b_correct": 13,
+        "p_exact": 0.09625244140625
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (reference)": {
+        "only_a_correct": 8,
+        "only_b_correct": 25,
+        "p_exact": 0.004551384132355452
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 8,
+        "only_b_correct": 25,
+        "p_exact": 0.004551384132355452
+      },
+      "v2 scorer (reference) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 0,
+        "only_b_correct": 0,
+        "p_exact": 1.0
+      }
+    }
+  },
+  "holdout video, text+image+video": {
+    "n": 120,
+    "gold": {
+      "REAL": 28,
+      "FAKE": 92
+    },
+    "systems": {
+      "qwen3.5-27b (v1 protocol)": {
+        "n": 120,
+        "real_recall": 0.5,
+        "fake_recall": 0.8260869565217391,
+        "balanced_accuracy": 0.6630434782608696,
+        "macro_f1": 0.6744349573078854,
+        "accuracy": 0.75,
+        "fake_as_real": 13,
+        "real_as_fake": 13,
+        "errors": 4,
+        "ci95": [
+          0.5679161125886525,
+          0.7615270466598721
+        ]
+      },
+      "qwen3.8-omni-flash (v1 protocol)": {
+        "n": 120,
+        "real_recall": 0.7142857142857143,
+        "fake_recall": 0.717391304347826,
+        "balanced_accuracy": 0.7158385093167702,
+        "macro_f1": 0.6816901408450704,
+        "accuracy": 0.7166666666666667,
+        "fake_as_real": 23,
+        "real_as_fake": 7,
+        "errors": 4,
+        "ci95": [
+          0.6200348053465573,
+          0.8072916666666667
+        ]
+      },
+      "Fact-R1 (4-bit, 8 frames + title)": {
+        "n": 120,
+        "real_recall": 0.5714285714285714,
+        "fake_recall": 0.7391304347826086,
+        "balanced_accuracy": 0.65527950310559,
+        "macro_f1": 0.634154807358556,
+        "accuracy": 0.7,
+        "fake_as_real": 23,
+        "real_as_fake": 12,
+        "errors": 1,
+        "ci95": [
+          0.5525655515552278,
+          0.7565414501126166
+        ]
+      },
+      "v2 scorer (reference)": {
+        "n": 120,
+        "real_recall": 0.75,
+        "fake_recall": 0.8586956521739131,
+        "balanced_accuracy": 0.8043478260869565,
+        "macro_f1": 0.782529902138456,
+        "accuracy": 0.8333333333333334,
+        "fake_as_real": 13,
+        "real_as_fake": 7,
+        "errors": 0,
+        "ci95": [
+          0.7106858658582796,
+          0.8923895253682488
+        ]
+      },
+      "v2 scorer (refusals as errors)": {
+        "n": 120,
+        "real_recall": 0.7142857142857143,
+        "fake_recall": 0.8478260869565217,
+        "balanced_accuracy": 0.781055900621118,
+        "macro_f1": 0.7796610169491525,
+        "accuracy": 0.8166666666666667,
+        "fake_as_real": 11,
+        "real_as_fake": 7,
+        "errors": 4,
+        "ci95": [
+          0.6839360513583899,
+          0.8729327340311823
+        ]
+      }
+    },
+    "mcnemar": {
+      "qwen3.5-27b (v1 protocol) || qwen3.8-omni-flash (v1 protocol)": {
+        "only_a_correct": 16,
+        "only_b_correct": 12,
+        "p_exact": 0.5715881884098053
+      },
+      "qwen3.5-27b (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 27,
+        "only_b_correct": 21,
+        "p_exact": 0.4708790136217118
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 7,
+        "only_b_correct": 17,
+        "p_exact": 0.06391465663909912
+      },
+      "qwen3.5-27b (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 7,
+        "only_b_correct": 15,
+        "p_exact": 0.13380050659179688
+      },
+      "qwen3.8-omni-flash (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 18,
+        "only_b_correct": 16,
+        "p_exact": 0.8641662404406816
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (reference)": {
+        "only_a_correct": 8,
+        "only_b_correct": 22,
+        "p_exact": 0.016124801710247993
+      },
+      "qwen3.8-omni-flash (v1 protocol) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 8,
+        "only_b_correct": 20,
+        "p_exact": 0.03569813817739487
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (reference)": {
+        "only_a_correct": 12,
+        "only_b_correct": 28,
+        "p_exact": 0.01658900337497471
+      },
+      "Fact-R1 (4-bit, 8 frames + title) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 13,
+        "only_b_correct": 27,
+        "p_exact": 0.03847730828420026
+      },
+      "v2 scorer (reference) || v2 scorer (refusals as errors)": {
+        "only_a_correct": 2,
+        "only_b_correct": 0,
+        "p_exact": 0.5
+      }
+    }
+  },
+  "tuning video": {
+    "n": 244,
+    "gold": {
+      "REAL": 69,
+      "FAKE": 175
+    },
+    "systems": {
+      "qwen3.5-27b (v1 protocol)": {
+        "n": 244,
+        "real_recall": 0.6086956521739131,
+        "fake_recall": 0.7885714285714286,
+        "balanced_accuracy": 0.6986335403726709,
+        "macro_f1": 0.6947508788944114,
+        "accuracy": 0.7377049180327869,
+        "fake_as_real": 35,
+        "real_as_fake": 26,
+        "errors": 3,
+        "ci95": [
+          0.6312683371252316,
+          0.7605051945989325
+        ]
+      },
+      "qwen3.8-omni-flash (v1 protocol)": {
+        "n": 244,
+        "real_recall": 0.7391304347826086,
+        "fake_recall": 0.7085714285714285,
+        "balanced_accuracy": 0.7238509316770185,
+        "macro_f1": 0.6941802112201333,
+        "accuracy": 0.7172131147540983,
+        "fake_as_real": 49,
+        "real_as_fake": 17,
+        "errors": 3,
+        "ci95": [
+          0.6618967797456733,
+          0.7832990132771014
+        ]
+      },
+      "Fact-R1 (4-bit, 8 frames + title)": {
+        "n": 244,
+        "real_recall": 0.5507246376811594,
+        "fake_recall": 0.6685714285714286,
+        "balanced_accuracy": 0.609648033126294,
+        "macro_f1": 0.5939364192403533,
+        "accuracy": 0.6352459016393442,
+        "fake_as_real": 57,
+        "real_as_fake": 31,
+        "errors": 1,
+        "ci95": [
+          0.5387097424237901,
+          0.6747212602582133
+        ]
+      }
+    },
+    "mcnemar": {
+      "qwen3.5-27b (v1 protocol) || qwen3.8-omni-flash (v1 protocol)": {
+        "only_a_correct": 23,
+        "only_b_correct": 18,
+        "p_exact": 0.5327092552361137
+      },
+      "qwen3.5-27b (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 57,
+        "only_b_correct": 32,
+        "p_exact": 0.010546897231105518
+      },
+      "qwen3.8-omni-flash (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 54,
+        "only_b_correct": 34,
+        "p_exact": 0.04221061162240416
+      }
+    }
+  },
+  "all 525 video": {
+    "n": 525,
+    "gold": {
+      "REAL": 150,
+      "FAKE": 375
+    },
+    "systems": {
+      "qwen3.5-27b (v1 protocol)": {
+        "n": 525,
+        "real_recall": 0.6666666666666666,
+        "fake_recall": 0.7573333333333333,
+        "balanced_accuracy": 0.712,
+        "macro_f1": 0.6993163602074493,
+        "accuracy": 0.7314285714285714,
+        "fake_as_real": 86,
+        "real_as_fake": 48,
+        "errors": 7,
+        "ci95": [
+          0.6695091513630305,
+          0.7549161545159082
+        ]
+      },
+      "qwen3.8-omni-flash (v1 protocol)": {
+        "n": 525,
+        "real_recall": 0.7666666666666667,
+        "fake_recall": 0.6933333333333334,
+        "balanced_accuracy": 0.73,
+        "macro_f1": 0.6975325488433322,
+        "accuracy": 0.7142857142857143,
+        "fake_as_real": 108,
+        "real_as_fake": 33,
+        "errors": 9,
+        "ci95": [
+          0.6898162294302849,
+          0.7694723439979742
+        ]
+      },
+      "Fact-R1 (4-bit, 8 frames + title)": {
+        "n": 525,
+        "real_recall": 0.64,
+        "fake_recall": 0.6506666666666666,
+        "balanced_accuracy": 0.6453333333333333,
+        "macro_f1": 0.6192402126323987,
+        "accuracy": 0.6476190476190476,
+        "fake_as_real": 128,
+        "real_as_fake": 54,
+        "errors": 3,
+        "ci95": [
+          0.6005147959462667,
+          0.6909980703270967
+        ]
+      }
+    },
+    "mcnemar": {
+      "qwen3.5-27b (v1 protocol) || qwen3.8-omni-flash (v1 protocol)": {
+        "only_a_correct": 52,
+        "only_b_correct": 43,
+        "p_exact": 0.41191007368097654
+      },
+      "qwen3.5-27b (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 115,
+        "only_b_correct": 71,
+        "p_exact": 0.0015466250339729094
+      },
+      "qwen3.8-omni-flash (v1 protocol) || Fact-R1 (4-bit, 8 frames + title)": {
+        "only_a_correct": 107,
+        "only_b_correct": 72,
+        "p_exact": 0.010839916955286594
+      }
+    }
+  },
+  "duplicate-row sensitivity qwen3.5-27b": {
+    "holdout ids that differ": [],
+    "last row BA": 0.6454303122619954,
+    "first row BA": 0.6454303122619954
+  },
+  "duplicate-row sensitivity qwen3.8-omni-flash": {
+    "holdout ids that differ": [
+      "1060",
+      "1061",
+      "1066",
+      "1072",
+      "1098"
+    ],
+    "last row BA": 0.7086252856054835,
+    "first row BA": 0.7067022086824066
+  }
+}
